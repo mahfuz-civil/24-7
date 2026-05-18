@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Premium Order System - Hope Lifestyle Style</title>
+    <title>HOPE. - Premium Admin & Shop System</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -18,7 +18,7 @@
 </head>
 <body class="bg-gray-50 text-gray-800">
 
-    <nav class="bg-white border-b border-gray-200 sticky top-0 z-50">
+    <nav class="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16 items-center">
                 <div class="flex items-center gap-2">
@@ -40,7 +40,7 @@
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
             
             <div class="lg:col-span-2">
-                <h2 class="text-xl font-semibold mb-6 tracking-tight text-gray-900">New Arrivals / নতুন কালেকশন</h2>
+                <h2 class="text-xl font-semibold mb-6 tracking-tight text-gray-900 border-b pb-3">New Arrivals / নতুন কালেকশন</h2>
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-6" id="product-list">
                     </div>
             </div>
@@ -68,56 +68,60 @@
                         <h3 class="text-sm font-semibold uppercase tracking-wider text-gray-400">অর্ডার কনফার্ম করুন</h3>
                         <div>
                             <label class="block text-xs font-medium text-gray-700 mb-1">আপনার নাম *</label>
-                            <input type="text" id="cust-name" required class="w-full px-4 py-2.5 border border-gray-300 rounded-lg text-sm focus:ring-1 focus:ring-black focus:border-black outline-none" placeholder="যেমন: আবির হোসেন">
+                            <input type="text" id="cust-name" required class="w-full px-4 py-2.5 border border-gray-300 rounded-lg text-sm outline-none focus:border-black">
                         </div>
                         <div>
                             <label class="block text-xs font-medium text-gray-700 mb-1">মোবাইল নম্বর *</label>
-                            <input type="tel" id="cust-phone" required class="w-full px-4 py-2.5 border border-gray-300 rounded-lg text-sm focus:ring-1 focus:ring-black focus:border-black outline-none" placeholder="01XXXXXXXXX">
+                            <input type="tel" id="cust-phone" required class="w-full px-4 py-2.5 border border-gray-300 rounded-lg text-sm outline-none focus:border-black">
                         </div>
                         <div>
                             <label class="block text-xs font-medium text-gray-700 mb-1">ডেলিভারি এলাকা *</label>
-                            <select id="cust-area" onchange="updateDeliveryCharge()" required class="w-full px-4 py-2.5 border border-gray-300 rounded-lg text-sm bg-white focus:ring-1 focus:ring-black focus:border-black outline-none">
-                                <option value="" disabled selected>এলাকা নির্বাচন করুন</option>
+                            <select id="cust-area" onchange="updateDeliveryCharge()" required class="w-full px-4 py-2.5 border border-gray-300 rounded-lg text-sm bg-white outline-none focus:border-black">
+                                <option value="" disabled selected>এlaকa n निर्वाचन korun</option>
                                 <option value="Inside Dhaka">ঢাকার ভিতরে (Inside Dhaka) - ৳৬০</option>
                                 <option value="Outside Dhaka">ঢাকার বাইরে (Outside Dhaka) - ৳১২০</option>
                             </select>
                         </div>
                         <div>
                             <label class="block text-xs font-medium text-gray-700 mb-1">পূর্ণাঙ্গ ঠিকানা *</label>
-                            <textarea id="cust-address" rows="2" required class="w-full px-4 py-2.5 border border-gray-300 rounded-lg text-sm focus:ring-1 focus:ring-black focus:border-black outline-none" placeholder="বাসা নং, রোড নং, থানা, জেলা"></textarea>
+                            <textarea id="cust-address" rows="2" required class="w-full px-4 py-2.5 border border-gray-300 rounded-lg text-sm outline-none focus:border-black" placeholder="বাসা নং, রোড নং, থানা, জেলা"></textarea>
                         </div>
-                        <button type="submit" class="w-full bg-amber-600 hover:bg-amber-700 text-white font-medium py-3 rounded-lg text-sm transition-all transform active:scale-[0.98] mt-2 shadow-sm">
+                        <button type="submit" class="w-full bg-amber-600 hover:bg-amber-700 text-white font-medium py-3 rounded-lg text-sm transition-all shadow-sm">
                             অর্ডারটি সম্পন্ন করুন <i class="fa-solid fa-arrow-right ml-2"></i>
                         </button>
                     </form>
                 </div>
             </div>
-
         </div>
     </div>
 
     <div id="admin-view" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 hidden transition-all duration-300">
         
-        <div class="bg-white rounded-2xl border border-gray-200 shadow-sm p-6 mb-8">
-            <h3 class="text-lg font-bold text-gray-900 mb-2"><i class="fa-solid fa-plus-circle text-amber-600 mr-2"></i>Add New Product / নতুন প্রোডাক্ট যুক্ত করুন</h3>
-            <p class="text-xs text-gray-500 mb-4">এখানে নতুন প্রোডাক্টের ডিটেইলস এবং ছবি আপলোড করলে তা কাস্টমার শপ পেজে লাইভ হয়ে যাবে।</p>
+        <div class="bg-white rounded-2xl border border-gray-200 shadow-md p-6 mb-8">
+            <div class="flex items-center gap-3 border-b pb-3 mb-4">
+                <div class="p-2 bg-amber-50 rounded-lg text-amber-600"><i class="fa-solid fa-square-plus text-xl"></i></div>
+                <div>
+                    <h3 class="text-lg font-bold text-gray-900">Add New Product / নতুন প্রোডাক্ট যুক্ত করুন</h3>
+                    <p class="text-xs text-gray-500">মোবাইল বা পিসি থেকে সরাসরি ছবি আপলোড করে লাইভ শপে প্রোডাক্ট অ্যাড করুন।</p>
+                </div>
+            </div>
             
             <form id="addProductForm" onsubmit="handleProductAdd(event)" class="grid grid-cols-1 md:grid-cols-4 gap-4 items-end">
                 <div>
                     <label class="block text-xs font-medium text-gray-700 mb-1">প্রোডাক্টের নাম *</label>
-                    <input type="text" id="prod-name" required class="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm outline-none focus:border-black" placeholder="যেমন: Premium Hoodie">
+                    <input type="text" id="prod-name" required class="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm outline-none focus:border-black" placeholder="যেমন: Drop Shoulder T-Shirt">
                 </div>
                 <div>
                     <label class="block text-xs font-medium text-gray-700 mb-1">মূল্য (৳) *</label>
-                    <input type="number" id="prod-price" required class="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm outline-none focus:border-black" placeholder="যেমন: 1500">
+                    <input type="number" id="prod-price" required class="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm outline-none focus:border-black" placeholder="যেমন: 1450">
                 </div>
                 <div>
-                    <label class="block text-xs font-medium text-gray-700 mb-1">ছবি আপলোড করুন (Upload Image) *</label>
+                    <label class="block text-xs font-medium text-gray-700 mb-1">ছবি আপলোড (Direct Upload) *</label>
                     <input type="file" id="prod-image-file" accept="image/*" required class="w-full text-xs text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-gray-100 file:text-gray-700 hover:file:bg-gray-200 cursor-pointer">
                 </div>
                 <div>
-                    <button type="submit" class="w-full bg-black hover:bg-amber-600 text-white font-medium py-2 rounded-lg text-sm transition-all shadow-sm">
-                         Upload & Add Product
+                    <button type="submit" class="w-full bg-black hover:bg-amber-600 text-white font-medium py-2.5 rounded-lg text-sm transition-all shadow-sm">
+                         Upload & Add Live
                     </button>
                 </div>
             </form>
@@ -127,7 +131,7 @@
             <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b pb-6 mb-6">
                 <div>
                     <h2 class="text-xl font-bold text-gray-900">Order Management Dashboard</h2>
-                    <p class="text-sm text-gray-500">কাস্টমারদের অর্ডার কন্ট্রোল, লোকেশন এডিট এবং কুরিয়ার হ্যান্ডেলিং প্যানেল।</p>
+                    <p class="text-sm text-gray-500">অর্ডার কন্ট্রোল, লোকেশন এডিট এবং কুরিয়ার হ্যান্ডেলিং প্যানেল।</p>
                 </div>
                 <div class="bg-gray-50 px-4 py-2 rounded-xl border flex gap-6 text-sm font-medium">
                     <div>Total Orders: <span id="admin-total-orders" class="text-amber-600 font-bold">0</span></div>
@@ -141,45 +145,72 @@
                         <tr class="border-b border-gray-200 bg-gray-50 text-xs font-semibold uppercase tracking-wider text-gray-500">
                             <th class="py-4 px-4">Order ID</th>
                             <th class="py-4 px-4">Customer Details</th>
-                            <th class="py-4 px-4">Products Ordered</th>
-                            <th class="py-4 px-4">Total Price</th>
-                            <th class="py-4 px-4">Delivery Location (Editable)</th>
-                            <th class="py-4 px-4">Pathao Courier Status</th>
+                            <th class="py-4 px-4">Products</th>
+                            <th class="py-4 px-4">Total</th>
+                            <th class="py-4 px-4">Location & Area</th>
+                            <th class="py-4 px-4">Pathao Status</th>
                             <th class="py-4 px-4 text-center">Actions</th>
                         </tr>
                     </thead>
                     <tbody id="admin-order-table-body" class="divide-y divide-gray-100 text-sm text-gray-700">
-                        <tr>
-                            <td colspan="7" class="text-center py-8 text-gray-400">কোনো অর্ডার পাওয়া যায়নি।</td>
-                        </tr>
+                        <tr><td colspan="7" class="text-center py-8 text-gray-400">কোনো অর্ডার পাওয়া যায়নি।</td></tr>
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
 
+    <div id="editModal" class="fixed inset-0 bg-black/50 hidden items-center justify-center z-[100] p-4 transition-all duration-200">
+        <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-xl relative animate-in fade-in zoom-in-95 duration-150">
+            <h3 class="text-lg font-bold text-gray-900 mb-2"><i class="fa-solid fa-location-dot text-amber-600 mr-2"></i>Edit Order Address / লোকেশন পরিবর্তন</h3>
+            <p class="text-xs text-gray-500 mb-4">অর্ডারের কাস্টমার ঠিকানা পরিবর্তন বা এডিট করে নিচে সেভ করুন।</p>
+            
+            <input type="hidden" id="edit-order-index">
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-xs font-medium text-gray-700 mb-1">ডেলিভারি এরিয়া</label>
+                    <select id="edit-order-area" class="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm bg-white outline-none focus:border-black">
+                        <option value="Inside Dhaka">Inside Dhaka (৳৬০)</option>
+                        <option value="Outside Dhaka">Outside Dhaka (৳১২০)</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-gray-700 mb-1">পূর্ণাঙ্গ ঠিকানা (সম্পূর্ণ এডিটেবল)</label>
+                    <textarea id="edit-order-address" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm outline-none focus:border-black" placeholder="এখানে নতুন করে ঠিকানাটি লিখুন..."></textarea>
+                </div>
+                <div class="flex justify-end gap-3 pt-2">
+                    <button type="button" onclick="closeEditModal()" class="px-4 py-2 border rounded-lg text-sm text-gray-500 hover:bg-gray-50">Cancel</button>
+                    <button type="button" onclick="saveEditedLocation()" class="px-5 py-2 bg-black hover:bg-amber-600 text-white rounded-lg text-sm font-medium">Save Changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div id="printSection" class="hidden p-8 bg-white text-black"></div>
 
-
     <script>
-        // Dummy Products Database (Initial Data)
-        let products = [
+        // Initial Dummy Base Products
+        let defaultProducts = [
             { id: 101, name: "Premium Minimalist Drop Shoulder T-Shirt", price: 1250, img: "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=500&auto=format&fit=crop&q=60" },
             { id: 102, name: "Aesthetic Oversized Summer Hoodie", price: 2400, img: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=500&auto=format&fit=crop&q=60" },
             { id: 103, name: "Relaxed Fit Cargo Pants - Olive Green", price: 1850, img: "https://images.unsplash.com/photo-1542272604-787c3835535d?w=500&auto=format&fit=crop&q=60" }
         ];
 
-        // State variables
+        // Local Storage checking so it never disappears on refresh
+        let products = JSON.parse(localStorage.getItem('hope_products')) || defaultProducts;
+        let orders = JSON.parse(localStorage.getItem('hope_orders')) || [];
         let cart = [];
-        let orders = [];
 
-        // App Initializer
         window.onload = function() {
             renderProducts();
             updateCartUI();
         };
 
-        // Navigation Controller between Customer and Admin Panel
+        function saveToLocalStorage() {
+            localStorage.setItem('hope_products', JSON.stringify(products));
+            localStorage.setItem('hope_orders', JSON.stringify(orders));
+        }
+
         function switchView(view) {
             const custView = document.getElementById('customer-view');
             const adminView = document.getElementById('admin-view');
@@ -200,7 +231,6 @@
             }
         }
 
-        // Render Customer Store Products
         function renderProducts() {
             const productList = document.getElementById('product-list');
             productList.innerHTML = products.map(prod => `
@@ -221,50 +251,39 @@
             `).join('');
         }
 
-        // Handle Product Adding via Admin Form with direct local image file conversion (Base64)
+        // Add Product Form Logic with Base64 Conversion
         function handleProductAdd(e) {
             e.preventDefault();
-            
             const name = document.getElementById('prod-name').value;
             const price = parseInt(document.getElementById('prod-price').value);
             const fileInput = document.getElementById('prod-image-file');
             const file = fileInput.files[0];
 
-            if (!file) {
-                alert("অনুগ্রহ করে একটি ছবি সিলেক্ট করুন!");
-                return;
-            }
+            if (!file) return alert("ছবি আপলোড করুন!");
 
-            // Reader দিয়ে ফাইলটিকে ব্রাউজার রিডেবল লিংকে রূপান্তর
             const reader = new FileReader();
             reader.onloadend = function() {
                 const newProduct = {
-                    id: Date.now(), // Unique ID generation
+                    id: Date.now(),
                     name: name,
                     price: price,
-                    img: reader.result // Base64 Data URL Image
+                    img: reader.result
                 };
-
-                // Array তে পুশ ও শপ আপডেট
-                products.unshift(newProduct); 
+                products.unshift(newProduct);
+                saveToLocalStorage();
                 renderProducts();
-                
-                // Form Reset
                 document.getElementById('addProductForm').reset();
-                alert('সফলভাবে নতুন প্রোডাক্ট শপ-এ যুক্ত হয়েছে! Customer Shop-এ গিয়ে চেক করতে পারেন।');
+                alert('Success! New Product Added to Customer View Live.');
             }
             reader.readAsDataURL(file);
         }
 
-        // Cart Actions
+        // Cart Controllers
         function addToCart(id) {
             const product = products.find(p => p.id === id);
             const exist = cart.find(item => item.id === id);
-            if (exist) {
-                exist.qty += 1;
-            } else {
-                cart.push({ ...product, qty: 1 });
-            }
+            if (exist) exist.qty += 1;
+            else cart.push({ ...product, qty: 1 });
             updateCartUI();
         }
 
@@ -272,17 +291,13 @@
             const item = cart.find(i => i.id === id);
             if (!item) return;
             item.qty += amt;
-            if (item.qty <= 0) {
-                cart = cart.filter(i => i.id !== id);
-            }
+            if (item.qty <= 0) cart = cart.filter(i => i.id !== id);
             updateCartUI();
         }
 
         function updateDeliveryCharge() {
             const area = document.getElementById('cust-area').value;
-            let charge = 0;
-            if (area === "Inside Dhaka") charge = 60;
-            if (area === "Outside Dhaka") charge = 120;
+            let charge = area === "Inside Dhaka" ? 60 : 120;
             document.getElementById('delivery-charge').innerText = charge;
             calculateTotal();
         }
@@ -290,17 +305,13 @@
         function calculateTotal() {
             let subtotal = cart.reduce((acc, item) => acc + (item.price * item.qty), 0);
             let delivery = parseInt(document.getElementById('delivery-charge').innerText) || 0;
-            let grandTotal = subtotal + delivery;
-
             document.getElementById('subtotal').innerText = subtotal;
-            document.getElementById('grand-total').innerText = grandTotal;
+            document.getElementById('grand-total').innerText = subtotal + delivery;
         }
 
         function updateCartUI() {
             const cartItemsContainer = document.getElementById('cart-items');
-            const cartCount = document.getElementById('cart-count');
-            
-            cartCount.innerText = cart.reduce((acc, item) => acc + item.qty, 0);
+            document.getElementById('cart-count').innerText = cart.reduce((acc, item) => acc + item.qty, 0);
 
             if (cart.length === 0) {
                 cartItemsContainer.innerHTML = `<p class="text-gray-400 text-sm text-center py-4">কার্ট এখনো খালি আছে</p>`;
@@ -313,67 +324,51 @@
                 <div class="flex items-center justify-between gap-3 text-xs border-b border-gray-50 pb-3">
                     <div class="flex-1">
                         <p class="font-medium text-gray-900 line-clamp-1">${item.name}</p>
-                        <p class="text-gray-500 mt-0.5">৳${item.price} × ${item.qty}</p>
+                        <p class="text-gray-500">৳${item.price} × ${item.qty}</p>
                     </div>
                     <div class="flex items-center border rounded-lg bg-gray-50">
-                        <button onclick="changeQty(${item.id}, -1)" class="px-2 py-1 hover:bg-gray-200 rounded-l-lg text-gray-600">-</button>
-                        <span class="px-2 font-semibold text-gray-800">${item.qty}</span>
-                        <button onclick="changeQty(${item.id}, 1)" class="px-2 py-1 hover:bg-gray-200 rounded-r-lg text-gray-600">+</button>
+                        <button onclick="changeQty(${item.id}, -1)" class="px-2 py-0.5 text-gray-600 hover:bg-gray-200">-</button>
+                        <span class="px-2 font-semibold">${item.qty}</span>
+                        <button onclick="changeQty(${item.id}, 1)" class="px-2 py-0.5 text-gray-600 hover:bg-gray-200">+</button>
                     </div>
                 </div>
             `).join('');
-
             calculateTotal();
         }
 
-        // Handle Customer Order Submission
         function handleCheckout(e) {
             e.preventDefault();
-            if (cart.length === 0) {
-                alert('অনুগ্রহ করে কার্টে অন্তত একটি প্রোডাক্ট যুক্ত করুন!');
-                return;
-            }
-
-            const name = document.getElementById('cust-name').value;
-            const phone = document.getElementById('cust-phone').value;
-            const area = document.getElementById('cust-area').value;
-            const address = document.getElementById('cust-address').value;
-            const subtotal = parseInt(document.getElementById('subtotal').innerText);
-            const delivery = parseInt(document.getElementById('delivery-charge').innerText);
-            const total = parseInt(document.getElementById('grand-total').innerText);
+            if (cart.length === 0) return alert('কার্ট খালি!');
 
             const orderData = {
                 id: "ORD-" + Math.floor(100000 + Math.random() * 900000),
                 date: new Date().toLocaleString('bn-BD'),
-                customerName: name,
-                customerPhone: phone,
-                deliveryArea: area,
-                deliveryAddress: address,
+                customerName: document.getElementById('cust-name').value,
+                customerPhone: document.getElementById('cust-phone').value,
+                deliveryArea: document.getElementById('cust-area').value,
+                deliveryAddress: document.getElementById('cust-address').value,
                 items: [...cart],
-                subtotal: subtotal,
-                deliveryCharge: delivery,
-                grandTotal: total,
+                subtotal: parseInt(document.getElementById('subtotal').innerText),
+                deliveryCharge: parseInt(document.getElementById('delivery-charge').innerText),
+                grandTotal: parseInt(document.getElementById('grand-total').innerText),
                 pathaoStatus: 'Pending'
             };
 
             orders.push(orderData);
-            
-            alert(`ধন্যবাদ ${name}! আপনার অর্ডারটি সফলভাবে রিসিভ হয়েছে। আইডি: ${orderData.id}`);
+            saveToLocalStorage();
+            alert(`Order Successful! ID: ${orderData.id}`);
             cart = [];
             document.getElementById('orderForm').reset();
-            document.getElementById('delivery-charge').innerText = '0';
             updateCartUI();
         }
 
         // ==========================================
-        // ADMIN PANEL FUNCTIONS
+        // ADMIN MANAGEMENT DASHBOARD ENGINE
         // ==========================================
         function renderAdminOrders() {
             const tableBody = document.getElementById('admin-order-table-body');
             document.getElementById('admin-total-orders').innerText = orders.length;
-            
-            let totalSales = orders.reduce((sum, o) => sum + o.grandTotal, 0);
-            document.getElementById('admin-total-sales').innerText = `৳${totalSales}`;
+            document.getElementById('admin-total-sales').innerText = `৳${orders.reduce((sum, o) => sum + o.grandTotal, 0)}`;
 
             if (orders.length === 0) {
                 tableBody.innerHTML = `<tr><td colspan="7" class="text-center py-8 text-gray-400">কোনো অর্ডার পাওয়া যায়নি।</td></tr>`;
@@ -381,127 +376,114 @@
             }
 
             tableBody.innerHTML = orders.map((order, index) => {
-                let itemsListHtml = order.items.map(i => `${i.name} (x${i.qty})`).join('<br>');
-                
                 let pathaoBadgeColor = "bg-gray-100 text-gray-700";
                 if(order.pathaoStatus === 'In Transit') pathaoBadgeColor = "bg-blue-50 text-blue-700 border border-blue-200";
                 if(order.pathaoStatus === 'Delivered') pathaoBadgeColor = "bg-green-50 text-green-700 border border-green-200";
 
                 return `
                     <tr class="hover:bg-gray-50/50">
-                        <td class="py-4 px-4 font-mono text-xs font-semibold text-gray-900">${order.id}<br><span class="text-[10px] text-gray-400 font-normal">${order.date}</span></td>
+                        <td class="py-4 px-4 font-mono text-xs font-semibold">${order.id}<br><span class="text-[10px] text-gray-400">${order.date}</span></td>
                         <td class="py-4 px-4">
-                            <div class="font-medium text-gray-900">${order.customerName}</div>
+                            <div class="font-medium">${order.customerName}</div>
                             <div class="text-xs text-gray-500">${order.customerPhone}</div>
                         </td>
-                        <td class="py-4 px-4 text-xs max-w-[200px] truncate">${itemsListHtml}</td>
-                        <td class="py-4 px-4 font-bold text-gray-900">৳${order.grandTotal}</td>
-                        
+                        <td class="py-4 px-4 text-xs">${order.items.map(i => `${i.name} (x${i.qty})`).join('<br>')}</td>
+                        <td class="py-4 px-4 font-bold">৳${order.grandTotal}</td>
                         <td class="py-4 px-4">
-                            <div class="flex flex-col gap-1">
-                                <span class="text-xs font-semibold bg-amber-50 text-amber-800 w-max px-2 py-0.5 rounded">${order.deliveryArea}</span>
-                                <textarea onchange="updateLocationInArray(${index}, this.value)" class="w-full text-xs border border-gray-200 rounded p-1.5 focus:border-black outline-none bg-white" rows="2">${order.deliveryAddress}</textarea>
+                            <div class="max-w-[180px]">
+                                <span class="text-[10px] block font-semibold text-amber-700">${order.deliveryArea}</span>
+                                <span class="text-xs text-gray-600 line-clamp-2">${order.deliveryAddress}</span>
                             </div>
                         </td>
-
                         <td class="py-4 px-4">
-                            <div class="flex items-center gap-2">
+                            <div class="flex items-center gap-1.5">
                                 <span class="text-xs px-2.5 py-1 rounded-full font-medium ${pathaoBadgeColor}">
                                     <i class="fa-solid fa-truck-fast mr-1 text-orange-500"></i> ${order.pathaoStatus}
                                 </span>
-                                <button onclick="togglePathaoStatus(${index})" title="Change Pathao Status" class="text-gray-400 hover:text-orange-600 transition-colors p-1">
-                                    <i class="fa-solid fa-rotate"></i>
-                                </button>
+                                <button onclick="togglePathaoStatus(${index})" class="text-gray-400 hover:text-orange-600 p-1"><i class="fa-solid fa-rotate text-xs"></i></button>
                             </div>
                         </td>
-
-                        <td class="py-4 px-4 text-center">
-                            <button onclick="printInvoice('${order.id}')" class="inline-flex items-center justify-center bg-gray-900 hover:bg-gray-800 text-white rounded-lg px-3 py-2 text-xs font-medium gap-1.5 transition-colors shadow-sm">
-                                <i class="fa-solid fa-print"></i> Print Invoice
-                            </button>
+                        <td class="py-4 px-4">
+                            <div class="flex gap-2 justify-center">
+                                <button onclick="openEditModal(${index})" class="bg-gray-100 text-gray-700 hover:bg-black hover:text-white px-3 py-1.5 rounded-lg text-xs font-medium transition-all">
+                                    <i class="fa-solid fa-pen-to-square mr-1"></i> Edit Location
+                                </button>
+                                <button onclick="printInvoice('${order.id}')" class="bg-black text-white hover:bg-amber-600 px-3 py-1.5 rounded-lg text-xs font-medium transition-all shadow-sm">
+                                    <i class="fa-solid fa-print"></i> Print
+                                </button>
+                            </div>
                         </td>
                     </tr>
                 `;
             }).join('');
         }
 
-        function updateLocationInArray(index, newValue) {
-            orders[index].deliveryAddress = newValue;
-            console.log(`Address Updated for Order ${orders[index].id}`);
+        // SEPARATE MODAL POPUP WINDOW CONTROLLERS
+        function openEditModal(index) {
+            const order = orders[index];
+            document.getElementById('edit-order-index').value = index;
+            document.getElementById('edit-order-area').value = order.deliveryArea;
+            document.getElementById('edit-order-address').value = order.deliveryAddress;
+            
+            const modal = document.getElementById('editModal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeEditModal() {
+            const modal = document.getElementById('editModal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function saveEditedLocation() {
+            const index = document.getElementById('edit-order-index').value;
+            const newArea = document.getElementById('edit-order-area').value;
+            const newAddress = document.getElementById('edit-order-address').value;
+
+            // Update database state
+            orders[index].deliveryArea = newArea;
+            orders[index].deliveryAddress = newAddress;
+            
+            // Re-calculate Grand Total if delivery charge changes
+            let currentOrder = orders[index];
+            let newCharge = newArea === "Inside Dhaka" ? 60 : 120;
+            currentOrder.deliveryCharge = newCharge;
+            currentOrder.grandTotal = currentOrder.subtotal + newCharge;
+
+            saveToLocalStorage();
+            renderAdminOrders();
+            closeEditModal();
+            alert("Customer Location Successfully Updated!");
         }
 
         function togglePathaoStatus(index) {
-            const current = orders[index].pathaoStatus;
-            if (current === 'Pending') orders[index].pathaoStatus = 'In Transit';
-            else if (current === 'In Transit') orders[index].pathaoStatus = 'Delivered';
-            else orders[index].pathaoStatus = 'Pending';
+            const curr = orders[index].pathaoStatus;
+            orders[index].pathaoStatus = curr === 'Pending' ? 'In Transit' : (curr === 'In Transit' ? 'Delivered' : 'Pending');
+            saveToLocalStorage();
             renderAdminOrders();
         }
 
         function printInvoice(orderId) {
             const order = orders.find(o => o.id === orderId);
             if (!order) return;
-
             const printSection = document.getElementById('printSection');
-            let itemRows = order.items.map(item => `
-                <tr style="border-bottom: 1px solid #eee;">
-                    <td style="padding: 10px 0;">${item.name}</td>
-                    <td style="padding: 10px 0; text-align: center;">${item.qty}</td>
-                    <td style="padding: 10px 0; text-align: right;">৳${item.price}</td>
-                    <td style="padding: 10px 0; text-align: right;">৳${item.price * item.qty}</td>
-                </tr>
-            `).join('');
-
             printSection.innerHTML = `
-                <div style="font-family: sans-serif; max-width: 600px; margin: auto; padding: 20px; color: #333;">
-                    <div style="text-align: center; margin-bottom: 30px;">
-                        <h1 style="margin: 0; font-size: 28px; letter-spacing: 2px;">HOPE LIFESTYLE</h1>
-                        <p style="margin: 5px 0; color: #666; font-size: 14px;">Premium Clothing & Lifestyle Brand</p>
-                        <hr style="border: 0; border-top: 1px solid #ccc; margin-top: 15px;">
-                    </div>
-                    
-                    <div style="display: flex; justify-content: space-between; margin-bottom: 30px; font-size: 14px;">
-                        <div>
-                            <strong>ORDER TO:</strong><br>
-                            Name: ${order.customerName}<br>
-                            Phone: ${order.customerPhone}<br>
-                            Address: ${order.deliveryAddress} (${order.deliveryArea})
-                        </div>
-                        <div style="text-align: right;">
-                            <strong>INVOICE DETAILS:</strong><br>
-                            Invoice ID: ${order.id}<br>
-                            Date: ${order.date}<br>
-                            Courier: Pathao Logistics
-                        </div>
-                    </div>
-
-                    <table style="width: 100%; border-collapse: collapse; font-size: 14px; margin-bottom: 30px;">
-                        <thead>
-                            <tr style="border-bottom: 2px solid #333; font-weight: bold;">
-                                <th style="text-align: left; padding-bottom: 8px;">Product</th>
-                                <th style="text-align: center; padding-bottom: 8px;">Qty</th>
-                                <th style="text-align: right; padding-bottom: 8px;">Price</th>
-                                <th style="text-align: right; padding-bottom: 8px;">Total</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            ${itemRows}
-                        </tbody>
+                <div style="font-family: sans-serif; max-width: 600px; margin: auto; padding: 20px;">
+                    <h1 style="text-align: center; margin: 0;">HOPE LIFESTYLE</h1>
+                    <p style="text-align: center; font-size: 12px; margin: 5px 0 20px;">Premium Brand Cash Memo</p>
+                    <p><strong>Order ID:</strong> ${order.id} | <strong>Date:</strong> ${order.date}</p>
+                    <p><strong>Customer:</strong> ${order.customerName} (${order.customerPhone})</p>
+                    <p><strong>Address:</strong> ${order.deliveryAddress} - ${order.deliveryArea}</p>
+                    <hr>
+                    <table style="width:100%; border-collapse: collapse; font-size: 14px; margin: 15px 0;">
+                        ${order.items.map(i => `<tr><td style="padding: 6px 0;">${i.name} (x${i.qty})</td><td style="text-align: right;">৳${i.price * i.qty}</td></tr>`).join('')}
                     </table>
-
-                    <div style="margin-left: auto; width: 50%; font-size: 14px; line-height: 1.8;">
-                        <div style="display: flex; justify-content: space-between;"><span>Subtotal:</span><span>৳${order.subtotal}</span></div>
-                        <div style="display: flex; justify-content: space-between;"><span>Delivery Charge:</span><span>৳${order.deliveryCharge}</span></div>
-                        <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 16px; border-top: 1px solid #333; margin-top: 5px; padding-top: 5px;">
-                            <span>Grand Total:</span><span>৳${order.grandTotal}</span>
-                        </div>
-                    </div>
-
-                    <div style="text-align: center; margin-top: 5px; color: #888; font-size: 12px;">
-                        <br><br><p>Thank you for shopping with HOPE!</p>
-                    </div>
-                </div>
-            `;
+                    <hr>
+                    <p style="text-align: right;">Subtotal: ৳${order.subtotal}</p>
+                    <p style="text-align: right;">Delivery Charge: ৳${order.deliveryCharge}</p>
+                    <h3 style="text-align: right; margin-top: 5px;">Grand Total: ৳${order.grandTotal}</h3>
+                </div>`;
             window.print();
         }
     </script>
