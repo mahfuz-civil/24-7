@@ -3,519 +3,482 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>E-Commerce Hub | Premium Storefront</title>
+    <title>Premium Order System - Hope Lifestyle Style</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons for Pathao/Print/Edit -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root {
-            --primary: #4f46e5;
-            --primary-hover: #4338ca;
-            --accent: #f59e0b;
-            --dark: #111827;
-            --light: #f9fafb;
-            --border: #e5e7eb;
-            --text-muted: #6b7280;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f3f4f6;
-            color: var(--dark);
-        }
-
-        /* Navigation Bar Layout styling matching clean micro-frontend structures */
-        .navbar {
-            background-color: white;
-            border-bottom: 1px solid var(--border);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            padding: 1rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: var(--primary);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            text-decoration: none;
-        }
-
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: var(--dark);
-            font-weight: 600;
-            transition: color 0.2s;
-        }
-
-        .nav-links a:hover {
-            color: var(--primary);
-        }
-
-        .admin-badge-btn {
-            background-color: var(--dark);
-            color: white !important;
-            padding: 0.6rem 1.2rem;
-            border-radius: 30px;
-            font-size: 0.85rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
-        }
-
-        .admin-badge-btn:hover {
-            background-color: #374151;
-        }
-
-        .hero-container {
-            max-width: 1200px;
-            margin: 2rem auto;
-            padding: 0 1rem;
-        }
-
-        /* Dynamically Generated Advertisement Showcase Banner framework */
-        .live-advertisement-banner {
-            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.15);
-            display: flex;
-            flex-direction: column;
-            margin-bottom: 3rem;
-            position: relative;
-        }
-
-        @media (min-width: 768px) {
-            .live-advertisement-banner {
-                flex-direction: row;
-                min-height: 280px;
-            }
-        }
-
-        .ad-image-frame {
-            flex: 1;
-            min-height: 200px;
-            position: relative;
-            background-color: #2e2a75;
-        }
-
-        .ad-image-frame img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            position: absolute;
-            top: 0;
-            left: 0;
-        }
-
-        .ad-details-pane {
-            flex: 1.2;
-            padding: 2.5rem;
-            color: white;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .ad-badge {
-            background-color: var(--accent);
-            color: var(--dark);
-            padding: 0.25rem 0.75rem;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            width: max-content;
-            margin-bottom: 1rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.25rem;
-        }
-
-        .ad-title {
-            font-size: 2rem;
-            font-weight: 800;
-            margin: 0 0 0.75rem 0;
-            line-height: 1.2;
-        }
-
-        .ad-description {
-            font-size: 1.05rem;
-            color: #e0e7ff;
-            margin: 0 0 1.5rem 0;
-            line-height: 1.5;
-        }
-
-        /* Storefront Interactive Order Engine Placement Section Layout */
-        .store-workspace {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 2.5rem;
-        }
-
-        @media (min-width: 992px) {
-            .store-workspace {
-                grid-template-columns: 1.8fr 1.2fr;
-            }
-        }
-
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .product-card {
-            background: white;
-            border-radius: 12px;
-            border: 1px solid var(--border);
-            overflow: hidden;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02);
-            transition: transform 0.2s, box-shadow 0.2s;
-            cursor: pointer;
-        }
-
-        .product-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05);
-        }
-
-        .product-media {
-            height: 180px;
-            background-color: #f3f4f6;
-            position: relative;
-        }
-
-        .product-media img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .product-content {
-            padding: 1.25rem;
-        }
-
-        .product-category {
-            font-size: 0.75rem;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            font-weight: 700;
-            margin-bottom: 0.25rem;
-        }
-
-        .product-title {
-            font-size: 1.05rem;
-            font-weight: 600;
-            margin: 0 0 0.5rem 0;
-        }
-
-        .product-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 1rem;
-        }
-
-        .product-price {
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: var(--primary);
-        }
-
-        .select-btn {
-            background-color: var(--light);
-            border: 1px solid var(--border);
-            color: var(--dark);
-            padding: 0.4rem 0.8rem;
-            border-radius: 8px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 0.3rem;
-        }
-
-        .product-card.selected-card {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
-        }
-
-        .product-card.selected-card .select-btn {
-            background-color: var(--primary);
-            color: white;
-            border-color: var(--primary);
-        }
-
-        /* Order Generation Interactive Control Module Card */
-        .order-processing-card {
-            background: white;
-            border-radius: 14px;
-            padding: 2rem;
-            border: 1px solid var(--border);
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
-            height: max-content;
-            position: sticky;
-            top: 100px;
-        }
-
-        .module-heading {
-            font-size: 1.25rem;
-            font-weight: 700;
-            margin: 0 0 1.5rem 0;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            border-bottom: 2px solid var(--light);
-            padding-bottom: 0.75rem;
-        }
-
-        .input-group {
-            margin-bottom: 1.25rem;
-        }
-
-        .input-group label {
-            display: block;
-            font-size: 0.85rem;
-            font-weight: 600;
-            margin-bottom: 0.4rem;
-            color: #374151;
-        }
-
-        .form-input {
-            width: 100%;
-            padding: 0.75rem 1rem;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            font-size: 0.95rem;
-            background-color: var(--light);
-            box-sizing: border-box;
-            transition: border-color 0.2s, background-color 0.2s;
-        }
-
-        .form-input:focus {
-            outline: none;
-            border-color: var(--primary);
-            background-color: white;
-        }
-
-        .checkout-summary-line {
-            display: flex;
-            justify-content: space-between;
-            font-weight: 600;
-            padding-top: 1rem;
-            border-top: 1px solid var(--border);
-            margin-top: 1.5rem;
-            font-size: 1.1rem;
-        }
-
-        .submit-order-btn {
-            width: 100%;
-            background-color: var(--primary);
-            color: white;
-            border: none;
-            padding: 0.9rem;
-            border-radius: 8px;
-            font-weight: 700;
-            font-size: 1rem;
-            cursor: pointer;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 0.5rem;
-            margin-top: 1.25rem;
-            transition: background-color 0.2s;
-        }
-
-        .submit-order-btn:hover {
-            background-color: var(--primary-hover);
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        @media print {
+            body * { visibility: hidden; }
+            #printSection, #printSection * { visibility: visible; }
+            #printSection { position: absolute; left: 0; top: 0; width: 100%; }
         }
     </style>
 </head>
-<body>
+<body class="bg-gray-50 text-gray-800">
 
-    <nav class="navbar">
-        <a href="index.html" class="logo">
-            <i class="fa-solid fa-layer-group"></i> NexusStore
-        </a>
-        <div class="nav-links">
-            <a href="index.html">Marketplace</a>
-            <a href="admin.html" class="admin-badge-btn">
-                <i class="fa-solid fa-lock-open"></i> Control Panel
-            </a>
+    <!-- TOP NAVIGATION BAR -->
+    <nav class="bg-white border-b border-gray-200 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center gap-2">
+                    <span class="text-2xl font-bold tracking-wider text-black">HOPE<span class="text-amber-600">.</span></span>
+                </div>
+                <div class="flex gap-4">
+                    <button onclick="switchView('customer')" id="btn-customer" class="px-5 py-2 rounded-full font-medium text-sm transition-all bg-black text-white shadow-sm">
+                        <i class="fa-solid fa-shopping-bag mr-2"></i>Customer Shop
+                    </button>
+                    <button onclick="switchView('admin')" id="btn-admin" class="px-5 py-2 rounded-full font-medium text-sm transition-all bg-gray-100 text-gray-700 hover:bg-gray-200">
+                        <i class="fa-solid fa-user-shield mr-2"></i>Admin Panel
+                    </button>
+                </div>
+            </div>
         </div>
     </nav>
 
-    <main class="hero-container">
-        <div class="live-advertisement-banner" id="promoBanner">
-            <div class="ad-image-frame">
-                <img id="bannerImg" src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80" alt="Promo Material">
+    <!-- ========================================== -->
+    <!-- 1. CUSTOMER VIEW (HOPE LIFESTYLE STYLE) -->
+    <!-- ========================================== -->
+    <div id="customer-view" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 transition-all duration-300">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            
+            <!-- Product Collection List (Left 2 Columns) -->
+            <div class="lg:col-span-2">
+                <h2 class="text-xl font-semibold mb-6 tracking-tight text-gray-900">New Arrivals / নতুন কালেকশন</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6" id="product-list">
+                    <!-- Products will be injected by JavaScript -->
+                </div>
             </div>
-            <div class="ad-details-pane">
-                <div class="ad-badge" id="bannerBadge"><i class="fa-solid fa-bolt"></i> Global Promotion</div>
-                <h2 class="ad-title" id="bannerTitle">Next-Gen Technology Integration Super Sale</h2>
-                <p class="ad-description" id="bannerDesc">Upgrade your dynamic digital framework with up to 40% discount across computational devices. Offer stands valid during checkout updates.</p>
-            </div>
-        </div>
 
-        <div class="store-workspace">
-            <div>
-                <h3 style="margin: 0 0 1.5rem 0; font-weight: 700;">Featured Ecosystem Devices</h3>
-                <div class="products-grid" id="catalogContainer">
+            <!-- Cart & Premium Checkout Form (Right 1 Column) -->
+            <div class="lg:col-span-1">
+                <div class="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm sticky top-24">
+                    <h2 class="text-lg font-semibold mb-4 flex items-center justify-between border-b pb-4">
+                        <span>আপনার কার্ট</span>
+                        <span id="cart-count" class="bg-black text-white text-xs px-2.5 py-1 rounded-full">0</span>
+                    </h2>
+
+                    <!-- Cart Items -->
+                    <div id="cart-items" class="space-y-4 max-h-48 overflow-y-auto mb-4 pr-1">
+                        <p class="text-gray-400 text-sm text-center py-4">কার্ট এখনো খালি আছে</p>
                     </div>
+
+                    <!-- Total Price Calculation -->
+                    <div class="border-t pt-4 space-y-2 text-sm text-gray-600">
+                        <div class="flex justify-between"><span>সাবটোটাল:</span><span class="font-medium text-gray-900">৳<span id="subtotal">0</span></span></div>
+                        <div class="flex justify-between"><span>ডেলিভারি চার্জ:</span><span class="font-medium text-gray-900">৳<span id="delivery-charge">0</span></span></div>
+                        <div class="flex justify-between text-base font-bold text-gray-900 border-t pt-2">
+                            <span>সর্বমোট মূল্য:</span><span>৳<span id="grand-total">0</span></span>
+                        </div>
+                    </div>
+
+                    <!-- Checkout Form -->
+                    <form id="orderForm" onsubmit="handleCheckout(event)" class="mt-6 space-y-4">
+                        <h3 class="text-sm font-semibold uppercase tracking-wider text-gray-400">অর্ডার কনফার্ম করুন</h3>
+                        <div>
+                            <label class="block text-xs font-medium text-gray-700 mb-1">আপনার নাম *</label>
+                            <input type="text" id="cust-name" required class="w-full px-4 py-2.5 border border-gray-300 rounded-lg text-sm focus:ring-1 focus:ring-black focus:border-black outline-none" placeholder="যেমন: আবির হোসেন">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-gray-700 mb-1">মোবাইল নম্বর *</label>
+                            <input type="tel" id="cust-phone" required class="w-full px-4 py-2.5 border border-gray-300 rounded-lg text-sm focus:ring-1 focus:ring-black focus:border-black outline-none" placeholder="01XXXXXXXXX">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-gray-700 mb-1">ডেলিভারি এলাকা *</label>
+                            <select id="cust-area" onchange="updateDeliveryCharge()" required class="w-full px-4 py-2.5 border border-gray-300 rounded-lg text-sm bg-white focus:ring-1 focus:ring-black focus:border-black outline-none">
+                                <option value="" disabled selected>এলাকা নির্বাচন করুন</option>
+                                <option value="Inside Dhaka">ঢাকার ভিতরে (Inside Dhaka) - ৳৬০</option>
+                                <option value="Outside Dhaka">ঢাকার বাইরে (Outside Dhaka) - ৳১২০</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-gray-700 mb-1">পূর্ণাঙ্গ ঠিকানা *</label>
+                            <textarea id="cust-address" rows="2" required class="w-full px-4 py-2.5 border border-gray-300 rounded-lg text-sm focus:ring-1 focus:ring-black focus:border-black outline-none" placeholder="বাসা নং, রোড নং, থানা, জেলা"></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-amber-600 hover:bg-amber-700 text-white font-medium py-3 rounded-lg text-sm transition-all transform active:scale-[0.98] mt-2 shadow-sm">
+                            অর্ডারটি সম্পন্ন করুন <i class="fa-solid fa-arrow-right ml-2"></i>
+                        </button>
+                    </form>
+                </div>
             </div>
 
-            <div class="order-processing-card">
-                <h4 class="module-heading"><i class="fa-solid fa-cart-shopping-fast"></i> Execution Dispatch</h4>
-                
-                <div class="input-group">
-                    <label>Selected Device Profile</label>
-                    <input type="text" id="orderItemDisplay" class="form-input" style="font-weight:600; color:var(--primary);" readonly value="Please select a item below">
-                </div>
+        </div>
+    </div>
 
-                <div class="input-group">
-                    <label>Client Full Identity</label>
-                    <input type="text" id="custName" class="form-input" placeholder="e.g. Jonathan Vance">
+    <!-- ========================================== -->
+    <!-- 2. ADMIN VIEW (COMPLETELY SEPARATE) -->
+    <!-- ========================================== -->
+    <div id="admin-view" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 hidden transition-all duration-300">
+        <div class="bg-white rounded-2xl border border-gray-200 shadow-sm p-6">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b pb-6 mb-6">
+                <div>
+                    <h2 class="text-xl font-bold text-gray-900">Order Management Dashboard</h2>
+                    <p class="text-sm text-gray-500">কাস্টমারদের অর্ডার কন্ট্রোল, লোকেশন এডিট এবং কুরিয়ার হ্যান্ডেলিং প্যানেল।</p>
                 </div>
-
-                <div class="input-group">
-                    <label>Secure Communication Line (Phone)</label>
-                    <input type="text" id="custPhone" class="form-input" placeholder="e.g. +1 (555) 019-2834">
+                <div class="bg-gray-50 px-4 py-2 rounded-xl border flex gap-6 text-sm font-medium">
+                    <div>Total Orders: <span id="admin-total-orders" class="text-amber-600 font-bold">0</span></div>
+                    <div>Total Sales: <span id="admin-total-sales" class="text-green-600 font-bold">৳0</span></div>
                 </div>
+            </div>
 
-                <div class="input-group">
-                    <label>Physical Infrastructure Delivery Node (Address)</label>
-                    <input type="text" id="custAddress" class="form-input" placeholder="e.g. 742 Evergreen Terrace, Sector 4">
-                </div>
-
-                <div class="checkout-summary-line">
-                    <span>Aggregated Value:</span>
-                    <span id="orderValueDisplay" style="color: var(--dark);">$0.00</span>
-                </div>
-
-                <button class="submit-order-btn" onclick="executeOrderPipeline()">
-                    <i class="fa-solid fa-circle-check"></i> Finalize Secure Checkout
-                </button>
+            <!-- Orders Data Table -->
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="border-b border-gray-200 bg-gray-50 text-xs font-semibold uppercase tracking-wider text-gray-500">
+                            <th class="py-4 px-4">Order ID</th>
+                            <th class="py-4 px-4">Customer Details</th>
+                            <th class="py-4 px-4">Products Ordered</th>
+                            <th class="py-4 px-4">Total Price</th>
+                            <th class="py-4 px-4">Delivery Location (Editable)</th>
+                            <th class="py-4 px-4">Pathao Courier Status</th>
+                            <th class="py-4 px-4 text-center">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="admin-order-table-body" class="divide-y divide-gray-100 text-sm text-gray-700">
+                        <!-- Orders will be generated here -->
+                        <tr>
+                            <td colspan="7" class="text-center py-8 text-gray-400">কোনো অর্ডার পাওয়া যায়নি।</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
-    </main>
+    </div>
 
+    <!-- HIDDEN INVOICE PRINT SECTION -->
+    <div id="printSection" class="hidden p-8 bg-white text-black">
+        <!-- Inside JavaScript printInvoice function template -->
+    </div>
+
+
+    <!-- ========================================== -->
+    <!-- JAVASCRIPT LOGIC & STATE MANAGEMENT -->
+    <!-- ========================================== -->
     <script>
-        // Mock Catalog Database Dataset System
-        const currentCatalog = [
-            { id: "PROD-A", title: "Quantum Matrix Core Processor", category: "Hardware", price: 899.00, img: "https://images.unsplash.com/photo-1591453089816-0fbb971b454c?auto=format&fit=crop&w=500&q=80" },
-            { id: "PROD-B", title: "Vortex High-Bandwidth Router Ultra", category: "Networking", price: 249.50, img: "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?auto=format&fit=crop&w=500&q=80" },
-            { id: "PROD-C", title: "Onyx Tactical Haptic Interface", category: "Peripherals", price: 135.00, img: "https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?auto=format&fit=crop&w=500&q=80" },
-            { id: "PROD-D", title: "AeroGlass Augmented Display Array", category: "Wearables", price: 1199.00, img: "https://images.unsplash.com/photo-1593508512255-86ab42a8e620?auto=format&fit=crop&w=500&q=80" }
+        // Dummy Products Database (Hope Lifestyle Premium Aesthetic Vibes)
+        const products = [
+            { id: 101, name: "Premium Minimalist Drop Shoulder T-Shirt", price: 1250, img: "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=500&auto=format&fit=crop&q=60" },
+            { id: 102, name: "Aesthetic Oversized Summer Hoodie", price: 2400, img: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=500&auto=format&fit=crop&q=60" },
+            { id: 103, name: "Relaxed Fit Cargo Pants - Olive Green", price: 1850, img: "https://images.unsplash.com/photo-1542272604-787c3835535d?w=500&auto=format&fit=crop&q=60" },
+            { id: 104, name: "Classic Cotton Linen Casual Shirt", price: 1600, img: "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=500&auto=format&fit=crop&q=60" }
         ];
 
-        let selectedProduct = null;
+        // State variables
+        let cart = [];
+        let orders = [];
 
-        function initializeAppStorefront() {
-            // Render products
-            const container = document.getElementById('catalogContainer');
-            container.innerHTML = '';
-            currentCatalog.forEach(p => {
-                container.innerHTML += `
-                    <div class="product-card" id="card-${p.id}" onclick="selectStoreItem('${p.id}')">
-                        <div class="product-media">
-                            <img src="${p.img}" alt="${p.title}">
-                        </div>
-                        <div class="product-content">
-                            <div class="product-category">${p.category}</div>
-                            <h4 class="product-title">${p.title}</h4>
-                            <div class="product-footer">
-                                <span class="product-price">$${p.price.toFixed(2)}</span>
-                                <button class="select-btn" id="btn-${p.id}">
-                                    <i class="fa-solid fa-plus"></i> Select
-                                </button>
-                            </div>
+        // App Initializer
+        window.onload = function() {
+            renderProducts();
+            updateCartUI();
+        };
+
+        // Navigation Controller between Customer and Admin Panel
+        function switchView(view) {
+            const custView = document.getElementById('customer-view');
+            const adminView = document.getElementById('admin-view');
+            const btnCust = document.getElementById('btn-customer');
+            const btnAdmin = document.getElementById('btn-admin');
+
+            if (view === 'customer') {
+                custView.classList.remove('hidden');
+                adminView.classList.add('hidden');
+                btnCust.className = "px-5 py-2 rounded-full font-medium text-sm transition-all bg-black text-white shadow-sm";
+                btnAdmin.className = "px-5 py-2 rounded-full font-medium text-sm transition-all bg-gray-100 text-gray-700 hover:bg-gray-200";
+            } else {
+                custView.classList.add('hidden');
+                adminView.classList.remove('hidden');
+                btnAdmin.className = "px-5 py-2 rounded-full font-medium text-sm transition-all bg-black text-white shadow-sm";
+                btnCust.className = "px-5 py-2 rounded-full font-medium text-sm transition-all bg-gray-100 text-gray-700 hover:bg-gray-200";
+                renderAdminOrders();
+            }
+        }
+
+        // Render Customer Store Products
+        function renderProducts() {
+            const productList = document.getElementById('product-list');
+            productList.innerHTML = products.map(prod => `
+                <div class="bg-white rounded-xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-md transition-all group">
+                    <div class="h-64 overflow-hidden bg-gray-100 relative">
+                        <img src="${prod.img}" alt="${prod.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-medium text-sm text-gray-900 line-clamp-2 h-10 mb-2">${prod.name}</h3>
+                        <div class="flex items-center justify-between mt-4">
+                            <span class="text-base font-bold text-gray-900">৳${prod.price}</span>
+                            <button onclick="addToCart(${prod.id})" class="bg-gray-900 hover:bg-amber-600 text-white text-xs px-3.5 py-2 rounded-lg transition-colors">
+                                <i class="fa-solid fa-plus mr-1"></i> Add to Cart
+                            </button>
                         </div>
                     </div>
-                `;
-            });
-
-            // Synchronize Advertisement configurations via LocalStorage
-            const storedAd = localStorage.getItem('liveDatabaseAd');
-            if (storedAd) {
-                const parsed = JSON.parse(storedAd);
-                document.getElementById('bannerTitle').innerText = parsed.title;
-                document.getElementById('bannerDesc').innerText = parsed.desc;
-                document.getElementById('bannerBadge').innerHTML = `<i class="${parsed.icon}"></i> ${parsed.badgeText}`;
-                if (parsed.imageRaw) {
-                    document.getElementById('bannerImg').src = parsed.imageRaw;
-                }
-            }
+                </div>
+            `).join('');
         }
 
-        function selectStoreItem(id) {
-            currentCatalog.forEach(p => {
-                document.getElementById(`card-${p.id}`).classList.remove('selected-card');
-                document.getElementById(`btn-${p.id}`).innerHTML = `<i class="fa-solid fa-plus"></i> Select`;
-            });
-
-            selectedProduct = currentCatalog.find(p => p.id === id);
-            document.getElementById(`card-${id}`).classList.add('selected-card');
-            document.getElementById(`btn-${id}`).innerHTML = `<i class="fa-solid fa-circle-check"></i> Selected`;
-
-            document.getElementById('orderItemDisplay').value = selectedProduct.title;
-            document.getElementById('orderValueDisplay').innerText = `$${selectedProduct.price.toFixed(2)}`;
+        // Cart Actions
+        function addToCart(id) {
+            const product = products.find(p => p.id === id);
+            const exist = cart.find(item => item.id === id);
+            if (exist) {
+                exist.qty += 1;
+            } else {
+                cart.push({ ...product, qty: 1 });
+            }
+            updateCartUI();
         }
 
-        function executeOrderPipeline() {
-            if (!selectedProduct) {
-                alert("Please select a technical device element before deploying transactions.");
+        function changeQty(id, amt) {
+            const item = cart.find(i => i.id === id);
+            if (!item) return;
+            item.qty += amt;
+            if (item.qty <= 0) {
+                cart = cart.filter(i => i.id !== id);
+            }
+            updateCartUI();
+        }
+
+        function updateDeliveryCharge() {
+            const area = document.getElementById('cust-area').value;
+            let charge = 0;
+            if (area === "Inside Dhaka") charge = 60;
+            if (area === "Outside Dhaka") charge = 120;
+            document.getElementById('delivery-charge').innerText = charge;
+            calculateTotal();
+        }
+
+        function calculateTotal() {
+            let subtotal = cart.reduce((acc, item) => acc + (item.price * item.qty), 0);
+            let delivery = parseInt(document.getElementById('delivery-charge').innerText) || 0;
+            let grandTotal = subtotal + delivery;
+
+            document.getElementById('subtotal').innerText = subtotal;
+            document.getElementById('grand-total').innerText = grandTotal;
+        }
+
+        function updateCartUI() {
+            const cartItemsContainer = document.getElementById('cart-items');
+            const cartCount = document.getElementById('cart-count');
+            
+            cartCount.innerText = cart.reduce((acc, item) => acc + item.qty, 0);
+
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = `<p class="text-gray-400 text-sm text-center py-4">কার্ট এখনো খালি আছে</p>`;
+                document.getElementById('subtotal').innerText = '0';
+                document.getElementById('grand-total').innerText = '0';
                 return;
             }
-            const name = document.getElementById('custName').value.trim();
-            const phone = document.getElementById('custPhone').value.trim();
-            const address = document.getElementById('custAddress').value.trim();
 
-            if (!name || !phone || !address) {
-                alert("Please supply complete identity and physical distribution metrics to dispatch order data safely.");
+            cartItemsContainer.innerHTML = cart.map(item => `
+                <div class="flex items-center justify-between gap-3 text-xs border-b border-gray-50 pb-3">
+                    <div class="flex-1">
+                        <p class="font-medium text-gray-900 line-clamp-1">${item.name}</p>
+                        <p class="text-gray-500 mt-0.5">৳${item.price} × ${item.qty}</p>
+                    </div>
+                    <div class="flex items-center border rounded-lg bg-gray-50">
+                        <button onclick="changeQty(${item.id}, -1)" class="px-2 py-1 hover:bg-gray-200 rounded-l-lg text-gray-600">-</button>
+                        <span class="px-2 font-semibold text-gray-800">${item.qty}</span>
+                        <button onclick="changeQty(${item.id}, 1)" class="px-2 py-1 hover:bg-gray-200 rounded-r-lg text-gray-600">+</button>
+                    </div>
+                </div>
+            `).join('');
+
+            calculateTotal();
+        }
+
+        // Handle Customer Order Submission
+        function handleCheckout(e) {
+            e.preventDefault();
+            if (cart.length === 0) {
+                alert('অনুগ্রহ করে কার্টে অন্তত একটি প্রোডাক্ট যুক্ত করুন!');
                 return;
             }
 
-            const uniqueOrderID = "NXS-" + Math.floor(100000 + Math.random() * 900000);
-            const orderPayload = {
-                id: uniqueOrderID,
-                customer: name,
-                phone: phone,
-                address: address,
-                item: selectedProduct.title,
-                cost: selectedProduct.price,
-                status: "Pending", 
-                timestamp: new Date().toLocaleString()
+            const name = document.getElementById('cust-name').value;
+            const phone = document.getElementById('cust-phone').value;
+            const area = document.getElementById('cust-area').value;
+            const address = document.getElementById('cust-address').value;
+            const subtotal = parseInt(document.getElementById('subtotal').innerText);
+            const delivery = parseInt(document.getElementById('delivery-charge').innerText);
+            const total = parseInt(document.getElementById('grand-total').innerText);
+
+            // Generate unique Order Data object
+            const orderData = {
+                id: "ORD-" + Math.floor(100000 + Math.random() * 900000),
+                date: new Date().toLocaleString('bn-BD'),
+                customerName: name,
+                customerPhone: phone,
+                deliveryArea: area,
+                deliveryAddress: address,
+                items: [...cart],
+                subtotal: subtotal,
+                deliveryCharge: delivery,
+                grandTotal: total,
+                pathaoStatus: 'Pending' // Initial state
             };
 
-            // Commit transaction data logs into synchronized Shared Web Database Framework (LocalStorage Engine)
-            let clusterOrders = JSON.parse(localStorage.getItem('sharedOrdersCluster')) || [];
-            clusterOrders.unshift(orderPayload);
-            localStorage.setItem('sharedOrdersCluster', JSON.stringify(clusterOrders));
-
-            alert(`Transaction verified successfully.\n\nOrder Reference Node: ${uniqueOrderID}\nStatus State: Pending verification matrix.`);
+            orders.push(orderData);
             
-            // Reset input contexts safely
-            document.getElementById('custName').value = '';
-            document.getElementById('custPhone').value = '';
-            document.getElementById('custAddress').value = '';
-            location.reload();
+            // Reset Form and Cart
+            alert(`ধন্যবাদ ${name}! আপনার অর্ডারটি সফলভাবে রিসিভ হয়েছে। আইডি: ${orderData.id}`);
+            cart = [];
+            document.getElementById('orderForm').reset();
+            document.getElementById('delivery-charge').innerText = '0';
+            updateCartUI();
         }
 
-        window.onload = initializeAppStorefront;
+        // ==========================================
+        // ADMIN PANEL FUNCTIONS
+        // ==========================================
+        function renderAdminOrders() {
+            const tableBody = document.getElementById('admin-order-table-body');
+            document.getElementById('admin-total-orders').innerText = orders.length;
+            
+            let totalSales = orders.reduce((sum, o) => sum + o.grandTotal, 0);
+            document.getElementById('admin-total-sales').innerText = `৳${totalSales}`;
+
+            if (orders.length === 0) {
+                tableBody.innerHTML = `<tr><td colspan="7" class="text-center py-8 text-gray-400">কোনো অর্ডার পাওয়া যায়নি।</td></tr>`;
+                return;
+            }
+
+            tableBody.innerHTML = orders.map((order, index) => {
+                let itemsListHtml = order.items.map(i => `${i.name} (x${i.qty})`).join('<br>');
+                
+                // Color configuration for Pathao courier lifecycle
+                let pathaoBadgeColor = "bg-gray-100 text-gray-700";
+                if(order.pathaoStatus === 'In Transit') pathaoBadgeColor = "bg-blue-50 text-blue-700 border border-blue-200";
+                if(order.pathaoStatus === 'Delivered') pathaoBadgeColor = "bg-green-50 text-green-700 border border-green-200";
+
+                return `
+                    <tr class="hover:bg-gray-50/50">
+                        <td class="py-4 px-4 font-mono text-xs font-semibold text-gray-900">${order.id}<br><span class="text-[10px] text-gray-400 font-normal">${order.date}</span></td>
+                        <td class="py-4 px-4">
+                            <div class="font-medium text-gray-900">${order.customerName}</div>
+                            <div class="text-xs text-gray-500">${order.customerPhone}</div>
+                        </td>
+                        <td class="py-4 px-4 text-xs max-w-[200px] truncate">${itemsListHtml}</td>
+                        <td class="py-4 px-4 font-bold text-gray-900">৳${order.grandTotal}</td>
+                        
+                        <!-- EDITABLE LOCATION FIELD -->
+                        <td class="py-4 px-4">
+                            <div class="flex flex-col gap-1">
+                                <span class="text-xs font-semibold bg-amber-50 text-amber-800 w-max px-2 py-0.5 rounded">${order.deliveryArea}</span>
+                                <textarea onchange="updateLocationInArray(${index}, this.value)" class="w-full text-xs border border-gray-200 rounded p-1.5 focus:border-black outline-none bg-white" rows="2">${order.deliveryAddress}</textarea>
+                            </div>
+                        </td>
+
+                        <!-- PATHAO COURIER TOGGLE STATUS ICON -->
+                        <td class="py-4 px-4">
+                            <div class="flex items-center gap-2">
+                                <span class="text-xs px-2.5 py-1 rounded-full font-medium ${pathaoBadgeColor}">
+                                    <i class="fa-solid fa-truck-fast mr-1 text-orange-500"></i> ${order.pathaoStatus}
+                                </span>
+                                <button onclick="togglePathaoStatus(${index})" title="Change Pathao Status" class="text-gray-400 hover:text-orange-600 transition-colors p-1">
+                                    <i class="fa-solid fa-rotate"></i>
+                                </button>
+                            </div>
+                        </td>
+
+                        <!-- ACTIONS: PRINT ACTION BUTTON -->
+                        <td class="py-4 px-4 text-center">
+                            <button onclick="printInvoice('${order.id}')" class="inline-flex items-center justify-center bg-gray-900 hover:bg-gray-800 text-white rounded-lg px-3 py-2 text-xs font-medium gap-1.5 transition-colors shadow-sm">
+                                <i class="fa-solid fa-print"></i> Print Invoice
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        // Live Dynamic Update Location Handler
+        function updateLocationInArray(index, newValue) {
+            orders[index].deliveryAddress = newValue;
+            console.log(`Address Updated for Order ${orders[index].id}`);
+        }
+
+        // Pathao Icon Trigger Cycle (Pending -> In Transit -> Delivered)
+        function togglePathaoStatus(index) {
+            const current = orders[index].pathaoStatus;
+            if (current === 'Pending') orders[index].pathaoStatus = 'In Transit';
+            else if (current === 'In Transit') orders[index].pathaoStatus = 'Delivered';
+            else orders[index].pathaoStatus = 'Pending';
+            
+            renderAdminOrders(); // Refresh matching UI state
+        }
+
+        // Cash Memo Printing Template Engine
+        function printInvoice(orderId) {
+            const order = orders.find(o => o.id === orderId);
+            if (!order) return;
+
+            const printSection = document.getElementById('printSection');
+            
+            let itemRows = order.items.map(item => `
+                <tr style="border-bottom: 1px solid #eee;">
+                    <td style="padding: 10px 0;">${item.name}</td>
+                    <td style="padding: 10px 0; text-align: center;">${item.qty}</td>
+                    <td style="padding: 10px 0; text-align: right;">৳${item.price}</td>
+                    <td style="padding: 10px 0; text-align: right;">৳${item.price * item.qty}</td>
+                </tr>
+            `).join('');
+
+            printSection.innerHTML = `
+                <div style="font-family: sans-serif; max-width: 600px; margin: auto; padding: 20px; color: #333;">
+                    <div style="text-align: center; margin-bottom: 30px;">
+                        <h1 style="margin: 0; font-size: 28px; letter-spacing: 2px;">HOPE LIFESTYLE</h1>
+                        <p style="margin: 5px 0; color: #666; font-size: 14px;">Premium Clothing & Lifestyle Brand</p>
+                        <hr style="border: 0; border-top: 1px solid #ccc; margin-top: 15px;">
+                    </div>
+                    
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 30px; font-size: 14px;">
+                        <div>
+                            <strong>ORDER TO:</strong><br>
+                            Name: ${order.customerName}<br>
+                            Phone: ${order.customerPhone}<br>
+                            Address: ${order.deliveryAddress} (${order.deliveryArea})
+                        </div>
+                        <div style="text-align: right;">
+                            <strong>INVOICE DETAILS:</strong><br>
+                            Invoice ID: ${order.id}<br>
+                            Date: ${order.date}<br>
+                            Courier: Pathao Logistics
+                        </div>
+                    </div>
+
+                    <table style="width: 100%; border-collapse: collapse; font-size: 14px; margin-bottom: 30px;">
+                        <thead>
+                            <tr style="border-bottom: 2px solid #333; font-weight: bold;">
+                                <th style="text-align: left; padding-bottom: 8px;">Product</th>
+                                <th style="text-align: center; padding-bottom: 8px;">Qty</th>
+                                <th style="text-align: right; padding-bottom: 8px;">Price</th>
+                                <th style="text-align: right; padding-bottom: 8px;">Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${itemRows}
+                        </tbody>
+                    </table>
+
+                    <div style="margin-left: auto; width: 50%; font-size: 14px; line-height: 1.8;">
+                        <div style="display: flex; justify-content: space-between;"><span>Subtotal:</span><span>৳${order.subtotal}</span></div>
+                        <div style="display: flex; justify-content: space-between;"><span>Delivery Charge:</span><span>৳${order.deliveryCharge}</span></div>
+                        <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 16px; border-top: 1px solid #333; margin-top: 5px; padding-top: 5px;">
+                            <span>Grand Total:</span><span>৳${order.grandTotal}</span>
+                        </div>
+                    </div>
+
+                    <div style="text-align: center; margin-top: 5px; color: #888; font-size: 12px;">
+                        <br><br><p>Thank you for shopping with HOPE!</p>
+                    </div>
+                </div>
+            `;
+
+            window.print();
+        }
     </script>
 </body>
 </html>
