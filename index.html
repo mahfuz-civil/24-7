@@ -1,414 +1,404 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Advanced Order & Admin Management System</title>
-    <!-- FontAwesome for beautiful icons -->
+    <title>আমাদের অনলাইন শপ</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root {
-            --primary-color: #4f46e5;
-            --success-color: #10b981;
-            --warning-color: #f59e0b;
-            --danger-color: #ef4444;
-            --dark-color: #1f2937;
-            --light-color: #f3f4f6;
-        }
+        :root { --primary: #ff5e62; --dark: #2c3e50; --light: #f8f9fa; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 0; background: #f3f4f6; }
+        
+        /* Navbar */
+        .navbar { background: white; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .logo { font-size: 1.5rem; font-weight: bold; color: var(--primary); display: flex; align-items: center; gap: 0.5rem; }
+        .nav-links a { margin-left: 1.5rem; text-decoration: none; color: var(--dark); font-weight: 600; }
+        .admin-btn { background: var(--dark); color: white !important; padding: 0.5rem 1rem; border-radius: 20px; }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f9fafb;
-            color: var(--dark-color);
-        }
+        /* Dynamic Banner */
+        .promo-banner { max-width: 1200px; margin: 2rem auto; background: linear-gradient(135deg, #ff9966, #ff5e62); color: white; border-radius: 15px; padding: 2rem; display: flex; align-items: center; gap: 2rem; box-shadow: 0 4px 15px rgba(255, 94, 98, 0.3); }
+        .promo-img { width: 150px; height: 150px; border-radius: 10px; object-fit: cover; background: #fff; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .promo-text h2 { margin: 0 0 0.5rem 0; font-size: 2rem; }
 
-        header {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 1.5rem;
-            text-align: center;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 2rem auto;
-            padding: 0 1rem;
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 2rem;
-        }
-
-        @media (min-width: 768px) {
-            .grid {
-                grid-template-columns: 1fr 2fr;
-            }
-        }
-
-        /* Card Styles */
-        .card {
-            background: white;
-            border-radius: 8px;
-            padding: 1.5rem;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            margin-bottom: 2rem;
-        }
-
-        .card-title {
-            font-size: 1.25rem;
-            margin-top: 0;
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            border-bottom: 2px solid var(--light-color);
-            padding-bottom: 0.5rem;
-        }
-
-        /* Form Controls */
-        .form-group {
-            margin-bottom: 1rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-        }
-
-        .form-control {
-            width: 100%;
-            padding: 0.75rem;
-            border: 1px solid #d1d5db;
-            border-radius: 6px;
-            box-sizing: border-box;
-        }
-
-        .btn {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 0.75rem 1.2rem;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: 600;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            transition: opacity 0.2s;
-        }
-
-        .btn:hover {
-            opacity: 0.9;
-        }
-
-        .btn-success { background-color: var(--success-color); }
-        .btn-warning { background-color: var(--warning-color); }
-        .btn-danger { background-color: var(--danger-color); }
-        .btn-secondary { background-color: #6b7280; }
-
-        /* Search Bar */
-        .search-container {
-            display: flex;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
-        }
-
-        /* Status Badges */
-        .badge {
-            padding: 0.25rem 0.5rem;
-            border-radius: 4px;
-            font-size: 0.85rem;
-            font-weight: bold;
-            text-transform: uppercase;
-        }
-        .badge-pending { background-color: #feebc8; color: #c05621; }
-        .badge-approved { background-color: #c6f6d5; color: #22543d; }
-        .badge-cancelled { background-color: #fed7d7; color: #9b2c2c; }
-        .badge-delivered { background-color: #e2e8f0; color: #4a5568; }
-
-        /* Tables */
-        .table-responsive {
-            overflow-x: auto;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            text-align: left;
-        }
-
-        th, td {
-            padding: 1rem;
-            border-bottom: 1px solid #e5e7eb;
-        }
-
-        th {
-            background-color: #f8fafc;
-        }
-
-        /* Ads Section */
-        .ad-banner {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 1.5rem;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
-
-        .ad-icon-display {
-            font-size: 3rem;
-        }
-
-        /* Print Styles */
-        @media print {
-            body * {
-                visibility: hidden;
-            }
-            #printArea, #printArea * {
-                visibility: visible;
-            }
-            #printArea {
-                position: absolute;
-                left: 0;
-                top: 0;
-                width: 100%;
-            }
-            .action-buttons, .search-container, .card:not(#admin-panel) {
-                display: none !important;
-            }
-        }
+        /* Product Section */
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 1rem; }
+        .section-title { font-size: 1.75rem; color: var(--dark); margin-bottom: 1.5rem; }
+        .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 2rem; margin-bottom: 4rem; }
+        
+        .product-card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.05); transition: 0.3s; }
+        .product-card:hover { transform: translateY(-5px); }
+        .prod-img { width: 100%; height: 200px; object-fit: cover; }
+        .prod-details { padding: 1.5rem; }
+        .prod-title { font-size: 1.2rem; margin: 0 0 0.5rem 0; color: var(--dark); }
+        .prod-price { font-size: 1.3rem; color: var(--primary); font-weight: bold; margin-bottom: 1rem; }
+        
+        /* Order Form Modal Sim */
+        .btn-order { background: var(--primary); color: white; border: none; width: 100%; padding: 0.75rem; border-radius: 8px; font-size: 1rem; font-weight: bold; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 0.5rem; }
+        
+        /* Quick Order Form */
+        .order-box { background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 3rem; }
+        .form-group { margin-bottom: 1.2rem; }
+        .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 600; }
+        .form-control { width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; }
     </style>
 </head>
 <body>
 
-    <header>
-        <h1><i class="fa-solid fa-layer-group"></i> Smart Order & Admin Dashboard</h1>
-    </header>
+    <div class="navbar">
+        <div class="logo"><i class="fa-solid fa-bag-shopping"></i> AmarShop</div>
+        <div class="nav-links">
+            <a href="#">হোম</a>
+            <a href="admin.html" class="admin-btn"><i class="fa-solid fa-user-gear"></i> অ্যাডমিন প্যানেল</a>
+        </div>
+    </div>
 
     <div class="container">
-        <!-- Dynamic Ad Banner Section -->
-        <div class="ad-banner" id="adBanner">
-            <div class="ad-icon-display"><i id="displayAdIcon" class="fa-solid fa-rectangle-ad"></i></div>
-            <div>
-                <h2 style="margin:0;" id="displayAdTitle">Your Promotion Here!</h2>
-                <p style="margin:5px 0 0 0;" id="displayAdDesc">Create an advertisement using the panel below to update this area.</p>
+        <!-- লাইভ অ্যাডভারটাইজমেন্ট ব্যানার -->
+        <div class="promo-banner" id="userAdBanner">
+            <img id="adDisplayImg" class="promo-img" src="https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=500" alt="Promo">
+            <div class="promo-text">
+                <h2 id="adDisplayTitle"><i id="adDisplayIcon" class="fa-solid fa-fire"></i> ধামাকা অফার!</h2>
+                <p id="adDisplayDesc">আজকের অর্ডারে পাচ্ছেন ১০% ফ্ল্যাট ডিসকাউন্ট। এখনই অর্ডার করুন।</p>
             </div>
         </div>
 
-        <div class="grid">
-            <!-- Left Column: Controls -->
-            <div>
-                <!-- Add Advertisement Card -->
-                <div class="card">
-                    <div class="card-title"><i class="fa-solid fa-bullhorn text-primary"></i> Create Promo Ad</div>
-                    <div class="form-group">
-                        <label>Select Ad Icon</label>
-                        <select id="adIcon" class="form-control">
-                            <option value="fa-solid fa-tag">🏷️ Tag / Discount</option>
-                            <option value="fa-solid fa-fire">🔥 Hot Deal</option>
-                            <option value="fa-solid fa-gift">🎁 Gift Package</option>
-                            <option value="fa-solid fa-star">⭐ Star Feature</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Ad Title</label>
-                        <input type="text" id="adTitle" class="form-control" placeholder="e.g., Midnight Flash Sale!">
-                    </div>
-                    <div class="form-group">
-                        <label>Ad Description</label>
-                        <textarea id="adDesc" class="form-control" rows="2" placeholder="e.g., Get 50% off on all electronic items..."></textarea>
-                    </div>
-                    <button class="btn" onclick="updateAdvertisement()"><i class="fa-solid fa-bullhorn"></i> Push Live Ad</button>
+        <!-- অর্ডার করার ফর্ম -->
+        <div class="order-box">
+            <h3 class="section-title"><i class="fa-solid fa-cart-arrow-down"></i> কুইক অর্ডার করুন</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
+                <div class="form-group">
+                    <label>আপনার নাম</label>
+                    <input type="text" id="custName" class="form-control" placeholder="উদা: আসিফ রহমান">
                 </div>
-
-                <!-- New Order Placement Simulation -->
-                <div class="card">
-                    <div class="card-title"><i class="fa-solid fa-cart-plus"></i> Simulate New Order</div>
-                    <div class="form-group">
-                        <label>Customer Name</label>
-                        <input type="text" id="custName" class="form-control" placeholder="John Doe">
-                    </div>
-                    <div class="form-group">
-                        <label>Product Item</label>
-                        <input type="text" id="prodName" class="form-control" placeholder="Wireless Headphones">
-                    </div>
-                    <div class="form-group">
-                        <label>Price ($)</label>
-                        <input type="number" id="prodPrice" class="form-control" placeholder="99.99">
-                    </div>
-                    <button class="btn btn-success" onclick="placeOrder()"><i class="fa-solid fa-check"></i> Place Order</button>
+                <div class="form-group">
+                    <label>মোবাইল নম্বর</label>
+                    <input type="text" id="custPhone" class="form-control" placeholder="উদা: 017XXXXXXXX">
+                </div>
+                <div class="form-group">
+                    <label>পণ্য নির্বাচন করুন</label>
+                    <select id="prodSelect" class="form-control">
+                        <option value="Premium Wireless Headphone" data-price="2500">Premium Wireless Headphone - ২৫০০ ৳</option>
+                        <option value="Smart Watch Series 9" data-price="4200">Smart Watch Series 9 - ৪২০০ ৳</option>
+                        <option value="Luxury Leather Wallet" data-price="1200">Luxury Leather Wallet - ১২০০ ৳</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>ডেলিভারি ঠিকানা</label>
+                    <input type="text" id="custAddress" class="form-control" placeholder="পূর্ণাঙ্গ ঠিকানা লিখুন">
                 </div>
             </div>
+            <button class="btn-order" style="margin-top: 1rem; max-width: 200px;" onclick="submitOrder()">
+                <i class="fa-solid fa-bolt"></i> অর্ডার কনফার্ম করুন
+            </button>
+        </div>
 
-            <!-- Right Column: Main Administration Panel -->
-            <div class="card" id="printArea">
-                <div class="card-title" style="justify-content: space-between; display: flex;">
-                    <span><i class="fa-solid fa-user-gear"></i> Order Processing Central</span>
-                    <button class="btn btn-secondary action-buttons" onclick="window.print()"><i class="fa-solid fa-print"></i> Print Invoice Sheet</button>
+        <!-- প্রোডাক্ট ডিসপ্লে -->
+        <h3 class="section-title">আমাদের প্রোডাক্টসমূহ</h3>
+        <div class="products-grid">
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500" class="prod-img">
+                <div class="prod-details">
+                    <h4 class="prod-title">Premium Wireless Headphone</h4>
+                    <div class="prod-price">৳ ২৫০০</div>
                 </div>
-
-                <!-- Search Bar with dynamic icon feedback -->
-                <div class="search-container action-buttons">
-                    <input type="text" id="searchBar" class="form-control" placeholder="Search orders by customer or product..." onkeyup="searchOrders()">
-                    <button class="btn" style="background-color: #4b5563;"><i id="searchIcon" class="fa-solid fa-magnifying-glass"></i></button>
+            </div>
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500" class="prod-img">
+                <div class="prod-details">
+                    <h4 class="prod-title">Smart Watch Series 9</h4>
+                    <div class="prod-price">৳ ৪২০০</div>
                 </div>
-
-                <!-- Main Orders Management Table -->
-                <div class="table-responsive">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Order ID</th>
-                                <th>Customer</th>
-                                <th>Product</th>
-                                <th>Price</th>
-                                <th>Status</th>
-                                <th class="action-buttons">Management Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody id="orderTableBody">
-                            <!-- JS will inject dynamic rows here -->
-                        </tbody>
-                    </table>
+            </div>
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1627123424574-724758594e93?w=500" class="prod-img">
+                <div class="prod-details">
+                    <h4 class="prod-title">Luxury Leather Wallet</h4>
+                    <div class="prod-price">৳ ১২০০</div>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        // Mock Initial Database
-        let orders = [
-            { id: "ORD1001", customer: "Alice Smith", product: "iPhone 15 Case", price: 29.99, status: "Pending" },
-            { id: "ORD1002", customer: "Bob Jones", product: "Mechanical Keyboard", price: 89.50, status: "Approved" },
-            { id: "ORD1003", customer: "Charlie Brown", product: "Gaming Mouse", price: 45.00, status: "Delivered" }
-        ];
-
-        // Render orders to the table view
-        function renderOrders(ordersToDisplay = orders) {
-            const tableBody = document.getElementById('orderTableBody');
-            tableBody.innerHTML = '';
-
-            if(ordersToDisplay.length === 0) {
-                tableBody.innerHTML = `<tr><td colspan="6" style="text-align:center;">No matching records found</td></tr>`;
-                return;
-            }
-
-            ordersToDisplay.forEach(order => {
-                let statusBadge = '';
-                switch(order.status.toLowerCase()) {
-                    case 'pending': statusBadge = `<span class="badge badge-pending"><i class="fa-solid fa-clock"></i> Pending</span>`; break;
-                    case 'approved': statusBadge = `<span class="badge badge-approved"><i class="fa-solid fa-square-check"></i> Approved</span>`; break;
-                    case 'cancelled': statusBadge = `<span class="badge badge-danger"><i class="fa-solid fa-ban"></i> Cancelled</span>`; break;
-                    case 'delivered': statusBadge = `<span class="badge badge-delivered"><i class="fa-solid fa-truck-ramp-box"></i> Delivered</span>`; break;
-                }
-
-                tableBody.innerHTML += `
-                    <tr>
-                        <td><strong>#${order.id}</strong></td>
-                        <td>${order.customer}</td>
-                        <td>${order.product}</td>
-                        <td>$${order.price.toFixed(2)}</td>
-                        <td>${statusBadge}</td>
-                        <td class="action-buttons">
-                            <button class="btn btn-warning" style="padding: 4px 8px; font-size: 12px;" onclick="updateStatus('${order.id}', 'Approved')"><i class="fa-solid fa-thumbs-up"></i> Approve</button>
-                            <button class="btn btn-success" style="padding: 4px 8px; font-size: 12px;" onclick="updateStatus('${order.id}', 'Delivered')"><i class="fa-solid fa-truck"></i> Deliver</button>
-                            <button class="btn btn-danger" style="padding: 4px 8px; font-size: 12px;" onclick="updateStatus('${order.id}', 'Cancelled')"><i class="fa-solid fa-xmark"></i> Cancel</button>
-                        </td>
-                    </tr>
-                `;
-            });
-        }
-
-        // Live status updating processing
-        function updateStatus(orderId, newStatus) {
-            const orderIndex = orders.findIndex(o => o.id === orderId);
-            if (orderIndex !== -1) {
-                orders[orderIndex].status = newStatus;
-                renderOrders();
+        // লোকাল স্টোরেজ থেকে অ্যাড লোড করা
+        function loadAd() {
+            const savedAd = localStorage.getItem('liveAd');
+            if(savedAd) {
+                const ad = JSON.parse(savedAd);
+                document.getElementById('adDisplayTitle').innerHTML = `<i class="${ad.icon}"></i> ${ad.title}`;
+                document.getElementById('adDisplayDesc').innerText = ad.desc;
+                if(ad.img) document.getElementById('adDisplayImg').src = ad.img;
             }
         }
 
-        // Place a simulated order
-        function placeOrder() {
-            const custName = document.getElementById('custName').value.trim();
-            const prodName = document.getElementById('prodName').value.trim();
-            const prodPrice = parseFloat(document.getElementById('prodPrice').value);
+        function submitOrder() {
+            const name = document.getElementById('custName').value.trim();
+            const phone = document.getElementById('custPhone').value.trim();
+            const address = document.getElementById('custAddress').value.trim();
+            const select = document.getElementById('prodSelect');
+            const product = select.value;
+            const price = select.options[select.selectedIndex].getAttribute('data-price');
 
-            if(!custName || !prodName || isNaN(prodPrice)) {
-                alert("Please fill out all order parameters cleanly!");
+            if(!name || !phone || !address) {
+                alert("দয়া করে সব ঘর সঠিকভাবে পূরণ করুন!");
                 return;
             }
 
             const newOrder = {
-                id: "ORD" + (1000 + orders.length + 1),
-                customer: custName,
-                product: prodName,
-                price: prodPrice,
-                status: "Pending"
+                id: "ORD" + Math.floor(1000 + Math.random() * 9000),
+                name, phone, address, product, price: parseFloat(price),
+                status: "Pending", pathaoStatus: "Not Sent"
             };
 
-            orders.push(newOrder);
-            renderOrders();
+            // লোকাল স্টোরেজে অর্ডার সেভ (অ্যাডমিন প্যানেলের জন্য)
+            let existingOrders = JSON.parse(localStorage.getItem('orders')) || [];
+            existingOrders.push(newOrder);
+            localStorage.setItem('orders', JSON.stringify(existingOrders));
 
-            // Clear Inputs
-            document.getElementById('custName').value = '';
-            document.getElementById('prodName').value = '';
-            document.getElementById('prodPrice').value = '';
+            alert("আপনার অর্ডারটি সফলভাবে গৃহীত হয়েছে! অর্ডার আইডি: " + newOrder.id);
+            location.reload();
         }
 
-        // Live search bar filter with magnifying glass icon transformation feedback
-        function searchOrders() {
-            const query = document.getElementById('searchBar').value.toLowerCase();
-            const searchIcon = document.getElementById('searchIcon');
-            
-            // Icon transforms visually if user is actively writing queries
-            if(query.length > 0) {
-                searchIcon.className = "fa-solid fa-spinner fa-spin";
-            } else {
-                searchIcon.className = "fa-solid fa-magnifying-glass";
-            }
-
-            const filtered = orders.filter(order => 
-                order.customer.toLowerCase().includes(query) || 
-                order.product.toLowerCase().includes(query) ||
-                order.id.toLowerCase().includes(query)
-            );
-            
-            setTimeout(() => {
-                renderOrders(filtered);
-                if(query.length > 0) searchIcon.className = "fa-solid fa-filter";
-            }, 200);
-        }
-
-        // Update advertisement system module 
-        function updateAdvertisement() {
-            const selectedIconClass = document.getElementById('adIcon').value;
-            const titleText = document.getElementById('adTitle').value.trim();
-            const descText = document.getElementById('adDesc').value.trim();
-
-            if(!titleText || !descText) {
-                alert("Please provide complete Title and Description parameters for your Ad Banner!");
-                return;
-            }
-
-            // Target banner components
-            document.getElementById('displayAdIcon').className = selectedIconClass;
-            document.getElementById('displayAdTitle').innerText = titleText;
-            document.getElementById('displayAdDesc').innerText = descText;
-        }
-
-        // Initial Layout Initialization
-        renderOrders();
+        window.onload = loadAd;
     </script>
 </body>
 </html>
-           
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>অ্যাডমিন ম্যানেজমেন্ট প্যানেল</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root { --primary: #4f46e5; --success: #10b981; --warning: #f59e0b; --danger: #ef4444; --dark: #1f2937; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; background: #f3f4f6; color: var(--dark); }
+        
+        .admin-header { background: var(--dark); color: white; padding: 1.5rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+        .admin-container { max-width: 1400px; margin: 2rem auto; padding: 0 1rem; display: grid; grid-template-columns: 1fr 3fr; gap: 2rem; }
+        
+        @media (max-width: 992px) { .admin-container { grid-template-columns: 1fr; } }
+
+        .card { background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-bottom: 1.5rem; }
+        .card-title { font-size: 1.2rem; font-weight: bold; margin-top: 0; border-bottom: 2px solid #f3f4f6; padding-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; }
+        
+        /* Forms */
+        .form-group { margin-bottom: 1rem; }
+        .form-group label { display: block; margin-bottom: 0.4rem; font-weight: 600; font-size: 0.9rem; }
+        .form-control { width: 100%; padding: 0.6rem; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; }
+        
+        .btn { padding: 0.6rem 1rem; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; display: inline-flex; align-items: center; gap: 0.3rem; text-decoration: none; font-size: 0.85rem; }
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-success { background: var(--success); color: white; }
+        .btn-warning { background: var(--warning); color: white; }
+        .btn-danger { background: var(--danger); color: white; }
+        .btn-pathao { background: #e12026; color: white; } /* Pathao Brand Color */
+
+        /* Search input decoration */
+        .search-box { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; }
+        .search-box .form-control { font-size: 1rem; }
+
+        /* Status Badges */
+        .badge { padding: 0.25rem 0.6rem; border-radius: 20px; font-size: 0.8rem; font-weight: bold; text-transform: uppercase; }
+        .badge-pending { background: #feebc8; color: #c05621; }
+        .badge-approved { background: #c6f6d5; color: #22543d; }
+        .badge-cancelled { background: #fed7d7; color: #9b2c2c; }
+        .badge-delivered { background: #e2e8f0; color: #4a5568; }
+
+        /* Tables */
+        table { width: 100%; border-collapse: collapse; text-align: left; background: white; }
+        th, td { padding: 1rem; border-bottom: 1px solid #e5e7eb; font-size: 0.9rem; }
+        th { background: #f8fafc; }
+
+        /* Print Area Selection */
+        @media print {
+            body * { visibility: hidden; }
+            #printSection, #printSection * { visibility: visible; }
+            #printSection { position: absolute; left: 0; top: 0; width: 100%; }
+            .action-col, .no-print { display: none !important; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="admin-header">
+        <h2><i class="fa-solid fa-gears"></i> কন্ট্রোল প্যানেল (Dashboard)</h2>
+        <a href="index.html" class="btn" style="background:#555; color:white;"><i class="fa-solid fa-store"></i> মূল ওয়েবসাইট</a>
+    </div>
+
+    <div class="admin-container">
+        <!-- বাম পাশের প্যানেল: অ্যাড এবং সেটিংস -->
+        <div>
+            <div class="card">
+                <div class="card-title"><i class="fa-solid fa-rectangle-ad"></i> লাইভ অ্যাড তৈরি করুন</div>
+                <div class="form-group">
+                    <label>আইকন সিলেক্ট করুন</label>
+                    <select id="adIcon" class="form-control">
+                        <option value="fa-solid fa-fire">🔥 ধামাকা (Fire)</option>
+                        <option value="fa-solid fa-gift">🎁 উপহার (Gift)</option>
+                        <option value="fa-solid fa-percentage">🏷️ অফার (Percentage)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>অ্যাডের শিরোনাম</label>
+                    <input type="text" id="adTitle" class="form-control" placeholder="শিরোনাম লিখুন">
+                </div>
+                <div class="form-group">
+                    <label>বিবরণ</label>
+                    <textarea id="adDesc" class="form-control" rows="2" placeholder="অ্যাডের বিস্তারিত..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label>ছবির ইউআরএল অথবা ফাইল</label>
+                    <input type="file" id="adImgFile" class="form-control" accept="image/*" onchange="previewImage(this)">
+                    <input type="hidden" id="adImgBase64">
+                </div>
+                <button class="btn btn-primary" style="width: 100%;" onclick="saveAd()"><i class="fa-solid fa-bullhorn"></i> অ্যাড পাবলিশ করুন</button>
+            </div>
+        </div>
+
+        <!-- ডান পাশের প্যানেল: অর্ডার লিস্ট এবং ট্র্যাকিং -->
+        <div class="card" id="printSection">
+            <div class="card-title" style="justify-content: space-between; display: flex; align-items: center;">
+                <span><i class="fa-solid fa-list-check"></i> অর্ডার ও ডেলিভারি ম্যানেজমেন্ট</span>
+                <button class="btn btn-primary no-print" onclick="window.print()"><i class="fa-solid fa-print"></i> ইনভয়েস প্রিন্ট করুন</button>
+            </div>
+
+            <!-- সার্চ ও রিয়েলটাইম আপডেট আইকন -->
+            <div class="search-box no-print">
+                <input type="text" id="adminSearch" class="form-control" placeholder="আইডি, নাম বা প্রোডাক্ট দিয়ে সার্চ করুন..." onkeyup="filterOrders()">
+                <button class="btn" style="background:#bbb;"><i id="searchStatusIcon" class="fa-solid fa-magnifying-glass"></i></button>
+            </div>
+
+            <div style="overflow-x: auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>আইডি</th>
+                            <th>গ্রাহক</th>
+                            <th>প্রোডাক্ট</th>
+                            <th>মূল্য</th>
+                            <th>অর্ডার স্ট্যাটাস</th>
+                            <th>পাঠাও ডেলিভারি</th>
+                            <th class="action-col">অ্যাকশন</th>
+                        </tr>
+                    </thead>
+                    <tbody id="adminOrderTable">
+                        <!-- জাভাস্ক্রিপ্ট এখানে অর্ডার ডাটা যুক্ত করবে -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ডেমো বা স্টোরেজ থেকে অর্ডার ডাটা নেওয়া
+        let orders = JSON.parse(localStorage.getItem('orders')) || [
+            { id: "ORD1001", name: "রাকিব হাসান", phone: "01711223344", address: "মিরপুর, ঢাকা", product: "Premium Wireless Headphone", price: 2500, status: "Pending", pathaoStatus: "Not Sent" },
+            { id: "ORD1002", name: "সুমি আক্তার", phone: "01911556677", address: "ধনিয়া, ঢাকা", product: "Luxury Leather Wallet", price: 1200, status: "Approved", pathaoStatus: "Sent" }
+        ];
+
+        // ছবির ফাইলকে Base64 টেক্সটে রূপান্তর (যাতে ডাটাবেজ ছাড়া ব্রাউজারে সেভ থাকে)
+        function previewImage(input) {
+            const file = input.files[0];
+            const reader = new FileReader();
+            reader.onloadend = function() {
+                document.getElementById('adImgBase64').value = reader.result;
+            }
+            if (file) reader.readAsDataURL(file);
+        }
+
+        // লাইভ অ্যাডভারটাইজমেন্ট সেভ করা
+        function saveAd() {
+            const icon = document.getElementById('adIcon').value;
+            const title = document.getElementById('adTitle').value;
+            const desc = document.getElementById('adDesc').value;
+            const img = document.getElementById('adImgBase64').value;
+
+            if(!title || !desc) { alert("শিরোনাম ও বিবরণ দিন!"); return; }
+
+            const adData = { icon, title, desc, img: img || "https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=500" };
+            localStorage.setItem('liveAd', JSON.stringify(adData));
+            alert("ওয়েবসাইটে অ্যাডটি সফলভাবে লাইভ করা হয়েছে!");
+        }
+
+        // টেবিল রেন্ডার করা
+        function renderAdminTable(dataToDisplay = orders) {
+            const tbody = document.getElementById('adminOrderTable');
+            tbody.innerHTML = '';
+
+            dataToDisplay.forEach((order, index) => {
+                let badgeClass = 'badge-pending';
+                if(order.status === 'Approved') badgeClass = 'badge-approved';
+                if(order.status === 'Cancelled') badgeClass = 'badge-cancelled';
+                if(order.status === 'Delivered') badgeClass = 'badge-delivered';
+
+                tbody.innerHTML += `
+                    <tr>
+                        <td><b>#${order.id}</b></td>
+                        <td>${order.name}<br><small>${order.phone}<br>${order.address}</small></td>
+                        <td>${order.product}</td>
+                        <td>৳ ${order.price}</td>
+                        <td><span class="badge ${badgeClass}">${order.status}</span></td>
+                        <td>
+                            <span style="color:${order.pathaoStatus === 'Sent' ? 'green':'gray'}; font-weight:bold;">
+                                <i class="fa-solid fa-motorcycle"></i> ${order.pathaoStatus}
+                            </span>
+                        </td>
+                        <td class="action-col">
+                            <button class="btn btn-warning" onclick="changeStatus('${order.id}', 'Approved')"><i class="fa-solid fa-thumbs-up"></i> Approve</button>
+                            <button class="btn btn-success" onclick="changeStatus('${order.id}', 'Delivered')"><i class="fa-solid fa-truck"></i> Deliver</button>
+                            <button class="btn btn-danger" onclick="changeStatus('${order.id}', 'Cancelled')"><i class="fa-solid fa-xmark"></i> Cancel</button>
+                            <button class="btn btn-pathao" onclick="sendToPathao('${order.id}')"><i class="fa-solid fa-paper-plane"></i> Pathao</button>
+                        </td>
+                    </tr>
+                `;
+            });
+            localStorage.setItem('orders', JSON.stringify(orders));
+        }
+
+        // স্ট্যাটাস পরিবর্তন
+        function changeStatus(id, newStatus) {
+            let order = orders.find(o => o.id === id);
+            if(order) {
+                order.status = newStatus;
+                renderAdminTable();
+            }
+        }
+
+        // পাঠাও এপিআই সিমুলেশন (Pathao Integration Simulation)
+        function sendToPathao(id) {
+            let order = orders.find(o => o.id === id);
+            if(order) {
+                order.pathaoStatus = "Sent";
+                alert(`অর্ডার #${id} সফলভাবে পাঠাও কুরিয়ার সার্ভিসে পাঠানো হয়েছে এবং ট্র্যাকিং আইডি জেনারেট হয়েছে!`);
+                renderAdminTable();
+            }
+        }
+
+        // সার্চ ও আপডেট আইকন ইফেক্ট
+        function filterOrders() {
+            const query = document.getElementById('adminSearch').value.toLowerCase();
+            const icon = document.getElementById('searchStatusIcon');
+            
+            if(query.length > 0) {
+                icon.className = "fa-solid fa-arrows-rotate fa-spin"; // সার্চ টাইপ করার সময় আইকন ঘুরবে
+            } else {
+                icon.className = "fa-solid fa-magnifying-glass";
+            }
+
+            const filtered = orders.filter(o => 
+                o.name.toLowerCase().includes(query) || 
+                o.id.toLowerCase().includes(query) || 
+                o.product.toLowerCase().includes(query)
+            );
+
+            setTimeout(() => {
+                renderAdminTable(filtered);
+                if(query.length > 0) icon.className = "fa-solid fa-circle-check"; // সার্চ শেষে আইকন পরিবর্তন
+            }, 300);
+        }
+
+        window.onload = () => renderAdminTable();
+    </script>
+</body>
+</html>
