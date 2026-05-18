@@ -1,239 +1,521 @@
 <!DOCTYPE html>
-<html lang="bn">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>অ্যাডমিন ম্যানেজমেন্ট প্যানেল</title>
+    <title>E-Commerce Hub | Premium Storefront</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root { --primary: #4f46e5; --success: #10b981; --warning: #f59e0b; --danger: #ef4444; --dark: #1f2937; }
-        body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; background: #f3f4f6; color: var(--dark); }
-        
-        .admin-header { background: var(--dark); color: white; padding: 1.5rem 2rem; display: flex; justify-content: space-between; align-items: center; }
-        .admin-container { max-width: 1400px; margin: 2rem auto; padding: 0 1rem; display: grid; grid-template-columns: 1fr 3fr; gap: 2rem; }
-        
-        @media (max-width: 992px) { .admin-container { grid-template-columns: 1fr; } }
+        :root {
+            --primary: #4f46e5;
+            --primary-hover: #4338ca;
+            --accent: #f59e0b;
+            --dark: #111827;
+            --light: #f9fafb;
+            --border: #e5e7eb;
+            --text-muted: #6b7280;
+        }
 
-        .card { background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-bottom: 1.5rem; }
-        .card-title { font-size: 1.2rem; font-weight: bold; margin-top: 0; border-bottom: 2px solid #f3f4f6; padding-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; }
-        
-        /* Forms */
-        .form-group { margin-bottom: 1rem; }
-        .form-group label { display: block; margin-bottom: 0.4rem; font-weight: 600; font-size: 0.9rem; }
-        .form-control { width: 100%; padding: 0.6rem; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; }
-        
-        .btn { padding: 0.6rem 1rem; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; display: inline-flex; align-items: center; gap: 0.3rem; text-decoration: none; font-size: 0.85rem; }
-        .btn-primary { background: var(--primary); color: white; }
-        .btn-success { background: var(--success); color: white; }
-        .btn-warning { background: var(--warning); color: white; }
-        .btn-danger { background: var(--danger); color: white; }
-        .btn-pathao { background: #e12026; color: white; } /* Pathao Brand Color */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f3f4f6;
+            color: var(--dark);
+        }
 
-        /* Search input decoration */
-        .search-box { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; }
-        .search-box .form-control { font-size: 1rem; }
+        /* Navigation Bar Layout styling matching clean micro-frontend structures */
+        .navbar {
+            background-color: white;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-        /* Status Badges */
-        .badge { padding: 0.25rem 0.6rem; border-radius: 20px; font-size: 0.8rem; font-weight: bold; text-transform: uppercase; }
-        .badge-pending { background: #feebc8; color: #c05621; }
-        .badge-approved { background: #c6f6d5; color: #22543d; }
-        .badge-cancelled { background: #fed7d7; color: #9b2c2c; }
-        .badge-delivered { background: #e2e8f0; color: #4a5568; }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
 
-        /* Tables */
-        table { width: 100%; border-collapse: collapse; text-align: left; background: white; }
-        th, td { padding: 1rem; border-bottom: 1px solid #e5e7eb; font-size: 0.9rem; }
-        th { background: #f8fafc; }
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
 
-        /* Print Area Selection */
-        @media print {
-            body * { visibility: hidden; }
-            #printSection, #printSection * { visibility: visible; }
-            #printSection { position: absolute; left: 0; top: 0; width: 100%; }
-            .action-col, .no-print { display: none !important; }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 600;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .admin-badge-btn {
+            background-color: var(--dark);
+            color: white !important;
+            padding: 0.6rem 1.2rem;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        }
+
+        .admin-badge-btn:hover {
+            background-color: #374151;
+        }
+
+        .hero-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        /* Dynamically Generated Advertisement Showcase Banner framework */
+        .live-advertisement-banner {
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.15);
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        @media (min-width: 768px) {
+            .live-advertisement-banner {
+                flex-direction: row;
+                min-height: 280px;
+            }
+        }
+
+        .ad-image-frame {
+            flex: 1;
+            min-height: 200px;
+            position: relative;
+            background-color: #2e2a75;
+        }
+
+        .ad-image-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .ad-details-pane {
+            flex: 1.2;
+            padding: 2.5rem;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .ad-badge {
+            background-color: var(--accent);
+            color: var(--dark);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            width: max-content;
+            margin-bottom: 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .ad-title {
+            font-size: 2rem;
+            font-weight: 800;
+            margin: 0 0 0.75rem 0;
+            line-height: 1.2;
+        }
+
+        .ad-description {
+            font-size: 1.05rem;
+            color: #e0e7ff;
+            margin: 0 0 1.5rem 0;
+            line-height: 1.5;
+        }
+
+        /* Storefront Interactive Order Engine Placement Section Layout */
+        .store-workspace {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2.5rem;
+        }
+
+        @media (min-width: 992px) {
+            .store-workspace {
+                grid-template-columns: 1.8fr 1.2fr;
+            }
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02);
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+        }
+
+        .product-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05);
+        }
+
+        .product-media {
+            height: 180px;
+            background-color: #f3f4f6;
+            position: relative;
+        }
+
+        .product-media img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .product-content {
+            padding: 1.25rem;
+        }
+
+        .product-category {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .product-title {
+            font-size: 1.05rem;
+            font-weight: 600;
+            margin: 0 0 0.5rem 0;
+        }
+
+        .product-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1rem;
+        }
+
+        .product-price {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .select-btn {
+            background-color: var(--light);
+            border: 1px solid var(--border);
+            color: var(--dark);
+            padding: 0.4rem 0.8rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .product-card.selected-card {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+        }
+
+        .product-card.selected-card .select-btn {
+            background-color: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        /* Order Generation Interactive Control Module Card */
+        .order-processing-card {
+            background: white;
+            border-radius: 14px;
+            padding: 2rem;
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+            height: max-content;
+            position: sticky;
+            top: 100px;
+        }
+
+        .module-heading {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin: 0 0 1.5rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            border-bottom: 2px solid var(--light);
+            padding-bottom: 0.75rem;
+        }
+
+        .input-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 0.4rem;
+            color: #374151;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 0.95rem;
+            background-color: var(--light);
+            box-sizing: border-box;
+            transition: border-color 0.2s, background-color 0.2s;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            background-color: white;
+        }
+
+        .checkout-summary-line {
+            display: flex;
+            justify-content: space-between;
+            font-weight: 600;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border);
+            margin-top: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .submit-order-btn {
+            width: 100%;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.9rem;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1.25rem;
+            transition: background-color 0.2s;
+        }
+
+        .submit-order-btn:hover {
+            background-color: var(--primary-hover);
         }
     </style>
 </head>
 <body>
 
-    <div class="admin-header">
-        <h2><i class="fa-solid fa-gears"></i> কন্ট্রোল প্যানেল (Dashboard)</h2>
-        <a href="index.html" class="btn" style="background:#555; color:white;"><i class="fa-solid fa-store"></i> মূল ওয়েবসাইট</a>
-    </div>
+    <nav class="navbar">
+        <a href="index.html" class="logo">
+            <i class="fa-solid fa-layer-group"></i> NexusStore
+        </a>
+        <div class="nav-links">
+            <a href="index.html">Marketplace</a>
+            <a href="admin.html" class="admin-badge-btn">
+                <i class="fa-solid fa-lock-open"></i> Control Panel
+            </a>
+        </div>
+    </nav>
 
-    <div class="admin-container">
-        <!-- বাম পাশের প্যানেল: অ্যাড এবং সেটিংস -->
-        <div>
-            <div class="card">
-                <div class="card-title"><i class="fa-solid fa-rectangle-ad"></i> লাইভ অ্যাড তৈরি করুন</div>
-                <div class="form-group">
-                    <label>আইকন সিলেক্ট করুন</label>
-                    <select id="adIcon" class="form-control">
-                        <option value="fa-solid fa-fire">🔥 ধামাকা (Fire)</option>
-                        <option value="fa-solid fa-gift">🎁 উপহার (Gift)</option>
-                        <option value="fa-solid fa-percentage">🏷️ অফার (Percentage)</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>অ্যাডের শিরোনাম</label>
-                    <input type="text" id="adTitle" class="form-control" placeholder="শিরোনাম লিখুন">
-                </div>
-                <div class="form-group">
-                    <label>বিবরণ</label>
-                    <textarea id="adDesc" class="form-control" rows="2" placeholder="অ্যাডের বিস্তারিত..."></textarea>
-                </div>
-                <div class="form-group">
-                    <label>ছবির ইউআরএল অথবা ফাইল</label>
-                    <input type="file" id="adImgFile" class="form-control" accept="image/*" onchange="previewImage(this)">
-                    <input type="hidden" id="adImgBase64">
-                </div>
-                <button class="btn btn-primary" style="width: 100%;" onclick="saveAd()"><i class="fa-solid fa-bullhorn"></i> অ্যাড পাবলিশ করুন</button>
+    <main class="hero-container">
+        <div class="live-advertisement-banner" id="promoBanner">
+            <div class="ad-image-frame">
+                <img id="bannerImg" src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80" alt="Promo Material">
+            </div>
+            <div class="ad-details-pane">
+                <div class="ad-badge" id="bannerBadge"><i class="fa-solid fa-bolt"></i> Global Promotion</div>
+                <h2 class="ad-title" id="bannerTitle">Next-Gen Technology Integration Super Sale</h2>
+                <p class="ad-description" id="bannerDesc">Upgrade your dynamic digital framework with up to 40% discount across computational devices. Offer stands valid during checkout updates.</p>
             </div>
         </div>
 
-        <!-- ডান পাশের প্যানেল: অর্ডার লিস্ট এবং ট্র্যাকিং -->
-        <div class="card" id="printSection">
-            <div class="card-title" style="justify-content: space-between; display: flex; align-items: center;">
-                <span><i class="fa-solid fa-list-check"></i> অর্ডার ও ডেলিভারি ম্যানেজমেন্ট</span>
-                <button class="btn btn-primary no-print" onclick="window.print()"><i class="fa-solid fa-print"></i> ইনভয়েস প্রিন্ট করুন</button>
+        <div class="store-workspace">
+            <div>
+                <h3 style="margin: 0 0 1.5rem 0; font-weight: 700;">Featured Ecosystem Devices</h3>
+                <div class="products-grid" id="catalogContainer">
+                    </div>
             </div>
 
-            <!-- সার্চ ও রিয়েলটাইম আপডেট আইকন -->
-            <div class="search-box no-print">
-                <input type="text" id="adminSearch" class="form-control" placeholder="আইডি, নাম বা প্রোডাক্ট দিয়ে সার্চ করুন..." onkeyup="filterOrders()">
-                <button class="btn" style="background:#bbb;"><i id="searchStatusIcon" class="fa-solid fa-magnifying-glass"></i></button>
-            </div>
+            <div class="order-processing-card">
+                <h4 class="module-heading"><i class="fa-solid fa-cart-shopping-fast"></i> Execution Dispatch</h4>
+                
+                <div class="input-group">
+                    <label>Selected Device Profile</label>
+                    <input type="text" id="orderItemDisplay" class="form-input" style="font-weight:600; color:var(--primary);" readonly value="Please select a item below">
+                </div>
 
-            <div style="overflow-x: auto;">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>আইডি</th>
-                            <th>গ্রাহক</th>
-                            <th>প্রোডাক্ট</th>
-                            <th>মূল্য</th>
-                            <th>অর্ডার স্ট্যাটাস</th>
-                            <th>পাঠাও ডেলিভারি</th>
-                            <th class="action-col">অ্যাকশন</th>
-                        </tr>
-                    </thead>
-                    <tbody id="adminOrderTable">
-                        <!-- জাভাস্ক্রিপ্ট এখানে অর্ডার ডাটা যুক্ত করবে -->
-                    </tbody>
-                </table>
+                <div class="input-group">
+                    <label>Client Full Identity</label>
+                    <input type="text" id="custName" class="form-input" placeholder="e.g. Jonathan Vance">
+                </div>
+
+                <div class="input-group">
+                    <label>Secure Communication Line (Phone)</label>
+                    <input type="text" id="custPhone" class="form-input" placeholder="e.g. +1 (555) 019-2834">
+                </div>
+
+                <div class="input-group">
+                    <label>Physical Infrastructure Delivery Node (Address)</label>
+                    <input type="text" id="custAddress" class="form-input" placeholder="e.g. 742 Evergreen Terrace, Sector 4">
+                </div>
+
+                <div class="checkout-summary-line">
+                    <span>Aggregated Value:</span>
+                    <span id="orderValueDisplay" style="color: var(--dark);">$0.00</span>
+                </div>
+
+                <button class="submit-order-btn" onclick="executeOrderPipeline()">
+                    <i class="fa-solid fa-circle-check"></i> Finalize Secure Checkout
+                </button>
             </div>
         </div>
-    </div>
+    </main>
 
     <script>
-        // ডেমো বা স্টোরেজ থেকে অর্ডার ডাটা নেওয়া
-        let orders = JSON.parse(localStorage.getItem('orders')) || [
-            { id: "ORD1001", name: "রাকিব হাসান", phone: "01711223344", address: "মিরপুর, ঢাকা", product: "Premium Wireless Headphone", price: 2500, status: "Pending", pathaoStatus: "Not Sent" },
-            { id: "ORD1002", name: "সুমি আক্তার", phone: "01911556677", address: "ধনিয়া, ঢাকা", product: "Luxury Leather Wallet", price: 1200, status: "Approved", pathaoStatus: "Sent" }
+        // Mock Catalog Database Dataset System
+        const currentCatalog = [
+            { id: "PROD-A", title: "Quantum Matrix Core Processor", category: "Hardware", price: 899.00, img: "https://images.unsplash.com/photo-1591453089816-0fbb971b454c?auto=format&fit=crop&w=500&q=80" },
+            { id: "PROD-B", title: "Vortex High-Bandwidth Router Ultra", category: "Networking", price: 249.50, img: "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?auto=format&fit=crop&w=500&q=80" },
+            { id: "PROD-C", title: "Onyx Tactical Haptic Interface", category: "Peripherals", price: 135.00, img: "https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?auto=format&fit=crop&w=500&q=80" },
+            { id: "PROD-D", title: "AeroGlass Augmented Display Array", category: "Wearables", price: 1199.00, img: "https://images.unsplash.com/photo-1593508512255-86ab42a8e620?auto=format&fit=crop&w=500&q=80" }
         ];
 
-        // ছবির ফাইলকে Base64 টেক্সটে রূপান্তর (যাতে ডাটাবেজ ছাড়া ব্রাউজারে সেভ থাকে)
-        function previewImage(input) {
-            const file = input.files[0];
-            const reader = new FileReader();
-            reader.onloadend = function() {
-                document.getElementById('adImgBase64').value = reader.result;
-            }
-            if (file) reader.readAsDataURL(file);
-        }
+        let selectedProduct = null;
 
-        // লাইভ অ্যাডভারটাইজমেন্ট সেভ করা
-        function saveAd() {
-            const icon = document.getElementById('adIcon').value;
-            const title = document.getElementById('adTitle').value;
-            const desc = document.getElementById('adDesc').value;
-            const img = document.getElementById('adImgBase64').value;
-
-            if(!title || !desc) { alert("শিরোনাম ও বিবরণ দিন!"); return; }
-
-            const adData = { icon, title, desc, img: img || "https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=500" };
-            localStorage.setItem('liveAd', JSON.stringify(adData));
-            alert("ওয়েবসাইটে অ্যাডটি সফলভাবে লাইভ করা হয়েছে!");
-        }
-
-        // টেবিল রেন্ডার করা
-        function renderAdminTable(dataToDisplay = orders) {
-            const tbody = document.getElementById('adminOrderTable');
-            tbody.innerHTML = '';
-
-            dataToDisplay.forEach((order, index) => {
-                let badgeClass = 'badge-pending';
-                if(order.status === 'Approved') badgeClass = 'badge-approved';
-                if(order.status === 'Cancelled') badgeClass = 'badge-cancelled';
-                if(order.status === 'Delivered') badgeClass = 'badge-delivered';
-
-                tbody.innerHTML += `
-                    <tr>
-                        <td><b>#${order.id}</b></td>
-                        <td>${order.name}<br><small>${order.phone}<br>${order.address}</small></td>
-                        <td>${order.product}</td>
-                        <td>৳ ${order.price}</td>
-                        <td><span class="badge ${badgeClass}">${order.status}</span></td>
-                        <td>
-                            <span style="color:${order.pathaoStatus === 'Sent' ? 'green':'gray'}; font-weight:bold;">
-                                <i class="fa-solid fa-motorcycle"></i> ${order.pathaoStatus}
-                            </span>
-                        </td>
-                        <td class="action-col">
-                            <button class="btn btn-warning" onclick="changeStatus('${order.id}', 'Approved')"><i class="fa-solid fa-thumbs-up"></i> Approve</button>
-                            <button class="btn btn-success" onclick="changeStatus('${order.id}', 'Delivered')"><i class="fa-solid fa-truck"></i> Deliver</button>
-                            <button class="btn btn-danger" onclick="changeStatus('${order.id}', 'Cancelled')"><i class="fa-solid fa-xmark"></i> Cancel</button>
-                            <button class="btn btn-pathao" onclick="sendToPathao('${order.id}')"><i class="fa-solid fa-paper-plane"></i> Pathao</button>
-                        </td>
-                    </tr>
+        function initializeAppStorefront() {
+            // Render products
+            const container = document.getElementById('catalogContainer');
+            container.innerHTML = '';
+            currentCatalog.forEach(p => {
+                container.innerHTML += `
+                    <div class="product-card" id="card-${p.id}" onclick="selectStoreItem('${p.id}')">
+                        <div class="product-media">
+                            <img src="${p.img}" alt="${p.title}">
+                        </div>
+                        <div class="product-content">
+                            <div class="product-category">${p.category}</div>
+                            <h4 class="product-title">${p.title}</h4>
+                            <div class="product-footer">
+                                <span class="product-price">$${p.price.toFixed(2)}</span>
+                                <button class="select-btn" id="btn-${p.id}">
+                                    <i class="fa-solid fa-plus"></i> Select
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 `;
             });
-            localStorage.setItem('orders', JSON.stringify(orders));
-        }
 
-        // স্ট্যাটাস পরিবর্তন
-        function changeStatus(id, newStatus) {
-            let order = orders.find(o => o.id === id);
-            if(order) {
-                order.status = newStatus;
-                renderAdminTable();
+            // Synchronize Advertisement configurations via LocalStorage
+            const storedAd = localStorage.getItem('liveDatabaseAd');
+            if (storedAd) {
+                const parsed = JSON.parse(storedAd);
+                document.getElementById('bannerTitle').innerText = parsed.title;
+                document.getElementById('bannerDesc').innerText = parsed.desc;
+                document.getElementById('bannerBadge').innerHTML = `<i class="${parsed.icon}"></i> ${parsed.badgeText}`;
+                if (parsed.imageRaw) {
+                    document.getElementById('bannerImg').src = parsed.imageRaw;
+                }
             }
         }
 
-        // পাঠাও এপিআই সিমুলেশন (Pathao Integration Simulation)
-        function sendToPathao(id) {
-            let order = orders.find(o => o.id === id);
-            if(order) {
-                order.pathaoStatus = "Sent";
-                alert(`অর্ডার #${id} সফলভাবে পাঠাও কুরিয়ার সার্ভিসে পাঠানো হয়েছে এবং ট্র্যাকিং আইডি জেনারেট হয়েছে!`);
-                renderAdminTable();
-            }
+        function selectStoreItem(id) {
+            currentCatalog.forEach(p => {
+                document.getElementById(`card-${p.id}`).classList.remove('selected-card');
+                document.getElementById(`btn-${p.id}`).innerHTML = `<i class="fa-solid fa-plus"></i> Select`;
+            });
+
+            selectedProduct = currentCatalog.find(p => p.id === id);
+            document.getElementById(`card-${id}`).classList.add('selected-card');
+            document.getElementById(`btn-${id}`).innerHTML = `<i class="fa-solid fa-circle-check"></i> Selected`;
+
+            document.getElementById('orderItemDisplay').value = selectedProduct.title;
+            document.getElementById('orderValueDisplay').innerText = `$${selectedProduct.price.toFixed(2)}`;
         }
 
-        // সার্চ ও আপডেট আইকন ইফেক্ট
-        function filterOrders() {
-            const query = document.getElementById('adminSearch').value.toLowerCase();
-            const icon = document.getElementById('searchStatusIcon');
+        function executeOrderPipeline() {
+            if (!selectedProduct) {
+                alert("Please select a technical device element before deploying transactions.");
+                return;
+            }
+            const name = document.getElementById('custName').value.trim();
+            const phone = document.getElementById('custPhone').value.trim();
+            const address = document.getElementById('custAddress').value.trim();
+
+            if (!name || !phone || !address) {
+                alert("Please supply complete identity and physical distribution metrics to dispatch order data safely.");
+                return;
+            }
+
+            const uniqueOrderID = "NXS-" + Math.floor(100000 + Math.random() * 900000);
+            const orderPayload = {
+                id: uniqueOrderID,
+                customer: name,
+                phone: phone,
+                address: address,
+                item: selectedProduct.title,
+                cost: selectedProduct.price,
+                status: "Pending", 
+                timestamp: new Date().toLocaleString()
+            };
+
+            // Commit transaction data logs into synchronized Shared Web Database Framework (LocalStorage Engine)
+            let clusterOrders = JSON.parse(localStorage.getItem('sharedOrdersCluster')) || [];
+            clusterOrders.unshift(orderPayload);
+            localStorage.setItem('sharedOrdersCluster', JSON.stringify(clusterOrders));
+
+            alert(`Transaction verified successfully.\n\nOrder Reference Node: ${uniqueOrderID}\nStatus State: Pending verification matrix.`);
             
-            if(query.length > 0) {
-                icon.className = "fa-solid fa-arrows-rotate fa-spin"; // সার্চ টাইপ করার সময় আইকন ঘুরবে
-            } else {
-                icon.className = "fa-solid fa-magnifying-glass";
-            }
-
-            const filtered = orders.filter(o => 
-                o.name.toLowerCase().includes(query) || 
-                o.id.toLowerCase().includes(query) || 
-                o.product.toLowerCase().includes(query)
-            );
-
-            setTimeout(() => {
-                renderAdminTable(filtered);
-                if(query.length > 0) icon.className = "fa-solid fa-circle-check"; // সার্চ শেষে আইকন পরিবর্তন
-            }, 300);
+            // Reset input contexts safely
+            document.getElementById('custName').value = '';
+            document.getElementById('custPhone').value = '';
+            document.getElementById('custAddress').value = '';
+            location.reload();
         }
 
-        window.onload = () => renderAdminTable();
+        window.onload = initializeAppStorefront;
     </script>
 </body>
 </html>
